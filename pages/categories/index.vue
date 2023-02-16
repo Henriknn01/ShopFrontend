@@ -116,7 +116,7 @@
           <p class="mt-1 text-lg font-medium text-gray-900">$35</p>
         </a>
 
-        <!-- More products... -->
+        <!-- More product... -->
       </div>
     </div>
     <ShopFooter/>

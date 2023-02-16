@@ -1,15 +1,6 @@
 <template>
+  <ShopHeader/>
   <div class="bg-white">
-    <ShopHeader/>
-    <div class="mx-auto max-w-7xl mt-10">
-      <div class="px-4 sm:px-6 lg:px-8">
-        <div class="h-96 grid grid-cols-1 gap-4 content-center bg-cover bg-center rounded-lg bg-[url('https://images.unsplash.com/photo-1674354419830-fe4ac561f651?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3087&q=80')]">
-          <div class="mx-auto">
-            <h1 class="text-6xl text-bold text-white">50% OFF ON EVERYTHING</h1>
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-2xl py-6 sm:py-12 lg:max-w-none lg:py-22">
         <h2 class="text-2xl font-bold text-gray-900">Collections</h2>
@@ -56,8 +47,9 @@
         </div>
       </div>
     </div>
+    <hr class="w-1/2 text-center mx-auto border-t-2">
     <div class="mx-auto max-w-2xl py-6 px-4 sm:py-12 sm:px-6 lg:max-w-7xl lg:px-8">
-      <h2 class="text-2xl font-bold text-gray-900 mb-12">Featured products</h2>
+      <h2 class="text-2xl font-bold text-gray-900 mb-12">Products</h2>
 
       <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
         <a href="#" class="group">
@@ -92,13 +84,6 @@
           <p class="mt-1 text-lg font-medium text-gray-900">$35</p>
         </a>
 
-        <!-- More product... -->
-      </div>
-    </div>
-    <div class="mx-auto max-w-2xl py-6 px-4 sm:py-12 sm:px-6 lg:max-w-7xl lg:px-8">
-      <h2 class="text-2xl font-bold text-gray-900 mb-12">You might be interested in...</h2>
-
-      <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
         <a href="#" class="group">
           <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-w-7 xl:aspect-h-8">
             <img src="https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg" alt="Tall slender porcelain bottle with natural clay textured body and cork stopper." class="h-full w-full object-cover object-center group-hover:opacity-75">
@@ -139,10 +124,14 @@
 </template>
 
 <script>
-import ShopFooter from "../components/ShopFooter.vue";
+import ShopHeader from "../../components/ShopHeader.vue";
 
 export default {
-  name: 'IndexPage',
-  components: {ShopFooter}
+  name: "index",
+  components: {ShopHeader}
 }
 </script>
+
+<style scoped>
+
+</style>
