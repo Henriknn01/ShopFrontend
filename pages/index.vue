@@ -3,9 +3,9 @@
     <ShopHeader/>
     <div class="mx-auto max-w-7xl mt-10">
       <div class="px-4 sm:px-6 lg:px-8">
-        <div class="h-96 grid grid-cols-1 gap-4 content-center bg-cover bg-center rounded-lg bg-[url('https://images.unsplash.com/photo-1674354419830-fe4ac561f651?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3087&q=80')]">
+        <div class="h-96 grid grid-cols-1 gap-4 content-center bg-cover bg-center rounded-lg bg-[url('https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80')]">
           <div class="mx-auto">
-            <h1 class="text-6xl text-bold text-white">50% OFF ON EVERYTHING</h1>
+            <h1 class="text-7xl text-bold text-white font-black">SALE!</h1>
           </div>
         </div>
       </div>
@@ -56,6 +56,7 @@
         </div>
       </div>
     </div>
+
     <div class="mx-auto max-w-2xl py-6 px-4 sm:py-12 sm:px-6 lg:max-w-7xl lg:px-8">
       <h2 class="text-2xl font-bold text-gray-900 mb-12">Featured products</h2>
 
@@ -137,10 +138,8 @@
     <ShopFooter/>
   </div>
 </template>
-
 <script>
 import ShopFooter from "../components/ShopFooter.vue";
-
 export default {
   name: 'IndexPage',
   components: {ShopFooter}
