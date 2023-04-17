@@ -18,14 +18,14 @@ import { ChatBubbleOvalLeftIcon } from "@heroicons/vue/24/outline";
                         </div>
                         <div class="flex flex-col leading-tight">
                             <div class="text-md mt-1 flex items-center">
-                                <span class="text-gray-700 mr-3">Ada Lovelace</span>
+                                <span class="text-gray-700 mr-3">Ada</span>
                             </div>
                             <span class="text-sm text-blue-600">AI Customer Support</span>
                         </div>
                     </div>
                 </div>
                 <div class="col-span-2 m-auto">
-                    <button class="p-4" @click="toggleMinimized">X</button>
+                    <button class="p-4 text-gray-800 hover:text-gray-400" @click="toggleMinimized">X</button>
                 </div>
             </div>
             <div class="col-span-12 h-64 space-y-3 p-4 overflow-y-auto justify-end scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
