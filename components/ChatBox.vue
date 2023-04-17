@@ -28,7 +28,7 @@ import { ChatBubbleOvalLeftIcon } from "@heroicons/vue/24/outline";
                     <button class="p-4" @click="toggleMinimized">X</button>
                 </div>
             </div>
-            <div class="col-span-12 h-64 space-y-3 p-3 h-full overflow-y-auto justify-end scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
+            <div class="col-span-12 h-64 space-y-3 p-3 overflow-y-auto justify-end scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
                 <div class="chat-message" v-for="msg in messages">
                     <div class="flex items-end justify-end" v-if="msg.role=='user'">
                         <div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-1 items-end">
