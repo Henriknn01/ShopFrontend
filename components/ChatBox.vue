@@ -50,7 +50,7 @@ import { ChatBubbleOvalLeftIcon } from "@heroicons/vue/24/outline";
             </div>
             <div class="col-span-12 px-2 pt-2 mb-2 sm:mb-0">
                 <div class="relative flex p-4">
-                    <input type="text" v-on:keyup.enter="sendMsg" v-model="msg" placeholder="Write your message!" class="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-4 bg-gray-200 rounded-md py-2">
+                    <input type="text" v-on:keyup.enter="sendMsg" v-model="msg" placeholder="Write your message!" class="w-full pr-12 focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-2 bg-gray-200 rounded-md py-2">
                     <div class="absolute right-4 items-center inset-y-0 flex">
                         <button type="button" @click="sendMsg" class="inline-flex items-center justify-center rounded-lg px-2 py-2 transition duration-500 ease-in-out text-white bg-blue-500 hover:bg-blue-400 focus:outline-none">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 transform rotate-90">
