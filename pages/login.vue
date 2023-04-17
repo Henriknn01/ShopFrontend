@@ -5,7 +5,6 @@ definePageMeta({
         navigateAuthenticatedTo: '/',
     }
 })
-
 const { signIn } = useAuth()
 </script>
 
