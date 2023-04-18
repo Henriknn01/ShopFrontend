@@ -50,8 +50,7 @@ const visibleProducts = ref([]);
 const currentIndex = ref(0);
 const {data: allProducts } = await useFetch(`http://127.0.0.1:8000/productcategory/${props.queryset}/?format=json`)
 const allprodLength = allProducts.value["products"].length;
-console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-console.log(allProducts.value["products"][0]["image"][0]["src"])
+
 
 const updateVisibleProducts = () => {
   visibleProducts.value = allProducts.value["products"].slice(currentIndex.value, currentIndex.value + 4);
