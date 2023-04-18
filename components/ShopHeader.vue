@@ -74,7 +74,7 @@
 
               <div class="space-y-6 border-t border-gray-200 py-6 px-4">
                 <div class="flow-root">
-                  <a href="#" class="-m-2 block p-2 font-medium text-gray-900">Sign in</a>
+                  <a href="#" class="-m-2 block p-2 font-medium text-gray-900" @click="signOut({ callbackUrl: '/login' })">Sign in</a>
                 </div>
                 <div class="flow-root">
                   <a href="#" class="-m-2 block p-2 font-medium text-gray-900">Create account</a>
@@ -95,7 +95,7 @@
     </TransitionRoot>
 
     <header class="relative bg-white">
-      <p class="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">Get free delivery on orders over $100</p>
+      <p class="flex h-10 items-center justify-center bg-blue-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">Get free delivery on orders over $100</p>
 
       <nav aria-label="Top" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="border-b border-gray-200">
@@ -164,7 +164,7 @@
 
             <div class="ml-auto flex items-center">
               <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                <a href="#" class="text-sm font-medium text-gray-700 hover:text-gray-800">Sign in</a>
+                <a href="#" class="text-sm font-medium text-gray-700 hover:text-gray-800" @click="signOut({ callbackUrl: '/login' })">Sign in</a>
                 <span class="h-6 w-px bg-gray-200" aria-hidden="true" />
                 <a href="#" class="text-sm font-medium text-gray-700 hover:text-gray-800">Create account</a>
               </div>
@@ -201,6 +201,7 @@
   </div>
 </template>
 
+
 <script setup>
 import { ref } from 'vue'
 import {
@@ -220,11 +221,13 @@ import {
 } from '@headlessui/vue'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 
+const { signOut } = useAuth()
+
 const navigation = {
   categories: [
     {
-      id: 'women',
-      name: 'Women',
+      id: 'cats',
+      name: 'Cats',
       featured: [
         {
           name: 'New Arrivals',
@@ -281,8 +284,8 @@ const navigation = {
       ],
     },
     {
-      id: 'men',
-      name: 'Men',
+      id: 'dogs',
+      name: 'Dogs',
       featured: [
         {
           name: 'New Arrivals',
@@ -338,8 +341,10 @@ const navigation = {
     },
   ],
   pages: [
-    { name: 'Company', href: '#' },
-    { name: 'Stores', href: '#' },
+    { name: 'Misc', href: '#' },
+    { name: 'Q&A', href: '#' },
+    { name: 'Blog', href: '#' },
+    { name: 'About us', href: '#' },
   ],
 }
 const open = ref(false)
