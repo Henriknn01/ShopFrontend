@@ -5,10 +5,10 @@
       <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 items-start overflow-hidden" style="max-width: 100%;">
         <a href="#" v-for="product in visibleProducts">
           <div class="overflow-hidden rounded-lg bg-gray-200">
-            <img :src=product.images[0] alt="test" class="h-60 w-full object-cover object-center hover:opacity-75">
+            <img :src=product.image[0].src alt="test" class="h-60 w-full object-cover object-center hover:opacity-75">
           </div>
           <h3 class="mt-4 text-sm text-gray-700">{{ product.name }}</h3>
-          <p class="mt-1 text-lg font-medium text-gray-900">${{ product.price }}</p>
+          <p class="mt-1 text-lg font-medium text-gray-900">{{ product.price }} NOK</p>
         </a>
       </div>
 
@@ -35,8 +35,6 @@
 export default {
   name: 'Carousel',
 }
-
-
 </script>
 
 <script setup>
@@ -45,35 +43,32 @@ const props = defineProps({
   queryset: String,
   limit: String,
 });
+definePageMeta({
+  layout: "products"
+})
+const visibleProducts = ref([]);
+const currentIndex = ref(0);
+const {data: allProducts } = await useFetch(`http://127.0.0.1:8000/productcategory/${props.queryset}/?format=json`)
+const allprodLength = allProducts.value["products"].length;
+console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+console.log(allProducts.value["products"][0]["image"][0]["src"])
 
-  definePageMeta({
-    layout: "products"
-  })
-
-  const visibleProducts = ref([]);
-  const currentIndex = ref(0);
-
-
-  const {data: allProducts } = await useFetch(`http://127.0.0.1:8000/productcategory/${props.queryset}/?format=json`)
-  const allprodLength = allProducts.value["products"].length;
-  const updateVisibleProducts = () => {
-        visibleProducts.value = allProducts.value["products"].slice(currentIndex.value, currentIndex.value + 4);
-      };
-  const scrollNext = () => {
-        if (currentIndex.value + 4 < allprodLength) {
-          currentIndex.value += 4;
-          updateVisibleProducts();
-        }
-      };
-
-  const scrollPrev = () => {
-        if (currentIndex.value - 4 >= 0) {
-          currentIndex.value -= 4;
-          updateVisibleProducts();
-        }
-      };
-
-  updateVisibleProducts();
+const updateVisibleProducts = () => {
+  visibleProducts.value = allProducts.value["products"].slice(currentIndex.value, currentIndex.value + 4);
+};
+const scrollNext = () => {
+  if (currentIndex.value + 4 < allprodLength) {
+    currentIndex.value += 4;
+    updateVisibleProducts();
+  }
+};
+const scrollPrev = () => {
+  if (currentIndex.value - 4 >= 0) {
+    currentIndex.value -= 4;
+    updateVisibleProducts();
+  }
+};
+updateVisibleProducts();
 </script>
 
 

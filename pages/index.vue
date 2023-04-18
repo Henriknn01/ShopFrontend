@@ -57,11 +57,11 @@
       </div>
     </div>
 
-    <Carousel title="Featured products" queryset="3" limit="10"/>
+    <Carousel title="Featured products" queryset="1" limit="10"/>
 
-    <Carousel title="Everything you need for your dog" queryset="5" limit="10"/>
+    <Carousel title="Everything you need for your dog" queryset="2" limit="10"/>
 
-    <Carousel title="Everything you need for your cat" queryset="4" limit="10"/>
+    <Carousel title="Everything you need for your cat" queryset="3" limit="10"/>
 
 
     <ShopFooter/>
