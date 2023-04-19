@@ -223,6 +223,10 @@ import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@her
 
 const { signOut } = useAuth()
 
+const {data: Cats } = await useFetch(`http://127.0.0.1:8000/productcategory/`)
+const CatsLen = Cats.value;
+console.log(Cats.value[4])
+
 const navigation = {
   categories: [
     {
