@@ -223,9 +223,42 @@ import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@her
 
 const { signOut } = useAuth()
 
-const {data: Cats } = await useFetch(`http://127.0.0.1:8000/productcategory/`)
-const CatsLen = Cats.value;
-console.log(Cats.value[4])
+let CatIndoorsections = []; //12
+let {data: CatIndoorSubcatagories } = await useFetch(`http://127.0.0.1:8000/productcategory/5/subcategories/`)
+let CatindoorSubcatagoriesList = CatIndoorSubcatagories.value["subcatagories"];
+
+for (let i = 0; i < CatindoorSubcatagoriesList.length; i++) {
+  const {data: CategoryName } = await useFetch(`http://127.0.0.1:8000/productcategory/${CatindoorSubcatagoriesList[i]}/?format=json`)
+  CatIndoorsections.push({name: CategoryName.value.name, href: "#"})
+}
+let CatOutdoorsections = []; //12
+let {data: Subcatagories } = await useFetch(`http://127.0.0.1:8000/productcategory/11/subcategories/`)
+let SubcatagoriesList = Subcatagories.value["subcatagories"];
+
+for (let i = 0; i < SubcatagoriesList.length; i++) {
+  const {data: CategoryName } = await useFetch(`http://127.0.0.1:8000/productcategory/${SubcatagoriesList[i]}/?format=json`)
+  CatOutdoorsections.push({name: CategoryName.value.name, href: "#"})
+}
+
+let allDogs = []; //12
+let {data: allDogsSubcatagories } = await useFetch(`http://127.0.0.1:8000/productcategory/4/subcategories/`)
+let allDogsSubcatagoriesList = allDogsSubcatagories.value["subcatagories"];
+
+for (let i = 0; i < allDogsSubcatagoriesList.length; i++) {
+  const {data: CategoryName } = await useFetch(`http://127.0.0.1:8000/productcategory/${allDogsSubcatagoriesList[i]}/?format=json`)
+  allDogs.push({name: CategoryName.value.name, href: "#"})
+}
+
+let dogHelths = []; //12
+let {data: dogHelthsSubcatagories } = await useFetch(`http://127.0.0.1:8000/productcategory/17/subcategories/`)
+let dogHelthsSubcatagoriesList = dogHelthsSubcatagories.value["subcatagories"];
+
+for (let i = 0; i < dogHelthsSubcatagoriesList.length; i++) {
+  const {data: CategoryName } = await useFetch(`http://127.0.0.1:8000/productcategory/${dogHelthsSubcatagoriesList[i]}/?format=json`)
+  dogHelths.push({name: CategoryName.value.name, href: "#"})
+}
+
+
 
 const navigation = {
   categories: [
@@ -234,45 +267,28 @@ const navigation = {
       name: 'Cats',
       featured: [
         {
-          name: 'New Arrivals',
+          name: "Cat bed collection",
           href: '#',
-          imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg',
+          imageSrc: 'https://get.musti.media/shops/mno/resources/ftp/productpage/c0/kissan-pesa-basic-tweety-az-c0.jpg',
           imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.',
         },
         {
-          name: 'Basic Tees',
+          name: 'Huge cat food sale!',
           href: '#',
-          imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
+          imageSrc: 'https://get.musti.media/shops/mno/resources/ftp/productpage/24/royal-canin-maine-coon-24.jpg',
           imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
         },
       ],
       sections: [
         {
-          id: 'clothing',
-          name: 'Clothing',
-          items: [
-            { name: 'Tops', href: '#' },
-            { name: 'Dresses', href: '#' },
-            { name: 'Pants', href: '#' },
-            { name: 'Denim', href: '#' },
-            { name: 'Sweaters', href: '#' },
-            { name: 'T-Shirts', href: '#' },
-            { name: 'Jackets', href: '#' },
-            { name: 'Activewear', href: '#' },
-            { name: 'Browse All', href: '#' },
-          ],
+          id: 'Cat',
+          name: 'For all cats',
+          items: CatIndoorsections,
         },
         {
-          id: 'accessories',
-          name: 'Accessories',
-          items: [
-            { name: 'Watches', href: '#' },
-            { name: 'Wallets', href: '#' },
-            { name: 'Bags', href: '#' },
-            { name: 'Sunglasses', href: '#' },
-            { name: 'Hats', href: '#' },
-            { name: 'Belts', href: '#' },
-          ],
+          id: 'OutdoorCat',
+          name: 'Outdoor cat',
+          items: CatOutdoorsections,
         },
         {
           id: 'brands',
@@ -292,44 +308,70 @@ const navigation = {
       name: 'Dogs',
       featured: [
         {
-          name: 'New Arrivals',
+          name: 'Signature food collection',
           href: '#',
-          imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
+          imageSrc: 'https://get.musti.media/shops/mno/resources/ftp/productpage/85/vom-og-hundemat-puppy-85.jpg',
           imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
         },
         {
-          name: 'Artwork Tees',
+          name: 'Artisian bone collection',
           href: '#',
-          imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
+          imageSrc: 'https://get.musti.media/shops/mno/resources/ftp/productpage/27/nylabone-puppy-startpaket-27.jpg',
           imageAlt:
               'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
         },
       ],
       sections: [
         {
-          id: 'clothing',
-          name: 'Clothing',
-          items: [
-            { name: 'Tops', href: '#' },
-            { name: 'Pants', href: '#' },
-            { name: 'Sweaters', href: '#' },
-            { name: 'T-Shirts', href: '#' },
-            { name: 'Jackets', href: '#' },
-            { name: 'Activewear', href: '#' },
-            { name: 'Browse All', href: '#' },
-          ],
+          id: 'foralldogs',
+          name: 'For all dogs',
+          items: allDogs,
         },
         {
-          id: 'accessories',
-          name: 'Accessories',
+          id: 'DogHealth',
+          name: 'keep your dog healthy',
+          items: dogHelths,
+        },
+        {
+          id: 'brands',
+          name: 'Brands',
           items: [
-            { name: 'Watches', href: '#' },
-            { name: 'Wallets', href: '#' },
-            { name: 'Bags', href: '#' },
-            { name: 'Sunglasses', href: '#' },
-            { name: 'Hats', href: '#' },
-            { name: 'Belts', href: '#' },
+            { name: 'Re-Arranged', href: '#' },
+            { name: 'Counterfeit', href: '#' },
+            { name: 'Full Nelson', href: '#' },
+            { name: 'My Way', href: '#' },
           ],
+        },
+      ],
+    },
+    {
+      id: 'misc',
+      name: 'Misc',
+      featured: [
+        {
+          name: 'Lizard potions',
+          href: '#',
+          imageSrc: 'https://media1.cgtrader.com/variants/YT2YtYYwfQaoPNZE2minMYLa/e44aa6a6359827c9089792cde0c079681b83d3b5c3037cc0525c25607e54355b/3wqtwqehyhwjRJ.png',
+          imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
+        },
+        {
+          name: 'Snake shed kit',
+          href: '#',
+          imageSrc: 'https://vgraphs.com/images/weapons/valorant-snakebite-shorty-profile-icon.png',
+          imageAlt:
+              'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
+        },
+      ],
+      sections: [
+        {
+          id: 'Reptiles',
+          name: 'Reptiles',
+          items: [],
+        },
+        {
+          id: 'Aviation',
+          name: 'Aviation',
+          items: [],
         },
         {
           id: 'brands',
@@ -345,7 +387,6 @@ const navigation = {
     },
   ],
   pages: [
-    { name: 'Misc', href: '#' },
     { name: 'Q&A', href: '#' },
     { name: 'Blog', href: '#' },
     { name: 'About us', href: '#' },
