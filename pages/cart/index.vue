@@ -64,8 +64,6 @@ import { TrashIcon } from "@heroicons/vue/24/outline";
                           <h4 class="flex-1 text-gray-800">Order total</h4>
                           <h4 class="text-gray-900">${{shoppingCart.total}}</h4>
                       </div>
-                      <button @click="addToCart" class="p-4 bg-indigo-600 rounded-lg text-white w-full mt-6">add item</button>
-
                       <button @click="shoppingCart.makePayment" v-if="shoppingCart.cartCount > 0" class="p-4 bg-indigo-600 rounded-lg text-white w-full mt-6">Checkout</button>
                       <button v-else class="p-4 bg-gray-600 rounded-lg text-white w-full mt-6" disabled>Checkout</button>
                   </div>
