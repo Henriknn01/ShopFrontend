@@ -107,7 +107,7 @@
 
             <!-- Logo -->
             <div class="ml-4 flex lg:ml-0">
-              <a href="#">
+              <a href="/">
                 <span class="sr-only">Your Company</span>
                 <img class="h-8 w-auto" src="https://norheimweb.ams3.cdn.digitaloceanspaces.com/assets/wave-logo-shape.png" alt="" />
               </a>
@@ -169,14 +169,6 @@
                 <a href="#" class="text-sm font-medium text-gray-700 hover:text-gray-800">Create account</a>
               </div>
 
-              <div class="hidden lg:ml-8 lg:flex">
-                <a href="#" class="flex items-center text-gray-700 hover:text-gray-800">
-                  <img src="https://tailwindui.com/img/flags/flag-canada.svg" alt="" class="block h-auto w-5 flex-shrink-0" />
-                  <span class="ml-3 block text-sm font-medium">CAD</span>
-                  <span class="sr-only">, change currency</span>
-                </a>
-              </div>
-
               <!-- Search -->
               <div class="flex lg:ml-6">
                 <a href="#" class="p-2 text-gray-400 hover:text-gray-500">
@@ -187,9 +179,9 @@
 
               <!-- Cart -->
               <div class="ml-4 flow-root lg:ml-6">
-                <a href="#" class="group -m-2 flex items-center p-2">
+                <a href="/cart" class="group -m-2 flex items-center p-2">
                   <ShoppingBagIcon class="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
-                  <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+                  <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{{ shoppingCart.cartCount }}</span>
                   <span class="sr-only">items in cart, view bag</span>
                 </a>
               </div>
@@ -222,6 +214,7 @@ import {
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 
 const { signOut } = useAuth()
+const shoppingCart = useShoppingCartStore();
 
 const navigation = {
   categories: [

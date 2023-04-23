@@ -19,7 +19,7 @@ async function refreshAccessToken(refreshToken: {
     try {
         console.warn("trying to post to refresh token");
         const refreshedTokensResponse = await fetch(
-            "http://127.0.0.1:8000/auth/jwt/refresh",
+            process.env.BACKEND_API_URL + "/auth/jwt/refresh",
             {
                     method: "POST",
                     headers: {
@@ -55,7 +55,7 @@ async function refreshAccessToken(refreshToken: {
 
 export default NuxtAuthHandler({
     // secret needed to run nuxt-auth in production mode (used to encrypt data)
-    secret:  'sup3r-s3cr37',//process.env.NUXT_SECRET,
+    secret:  process.env.NUXT_SECRET,
     pages: {
         // Change the default behavior to use `/login` as the path for the sign-in page
         signIn: '/login'
@@ -72,7 +72,7 @@ export default NuxtAuthHandler({
             async authorize (credentials: any) {
                 try {
                     const tokenResponse= await fetch(
-                        `http://127.0.0.1:8000/auth/jwt/create/`,
+                        process.env.BACKEND_API_URL + `/auth/jwt/create/`,
                         {
                                 method: "POST",
                                 body: JSON.stringify({

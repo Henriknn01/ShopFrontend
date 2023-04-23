@@ -3,7 +3,8 @@ definePageMeta({
     auth: {
         unauthenticatedOnly: true,
         navigateAuthenticatedTo: '/',
-    }
+    },
+    layout: "login",
 })
 const { signIn } = useAuth()
 </script>
