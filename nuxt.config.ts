@@ -23,6 +23,8 @@ export default defineNuxtConfig({
         FRONTEND_URL: process.env.FRONTEND_URL,
         BACKEND_API_URL: process.env.BACKEND_API_URL,
         STRIPE_PUBLIC_KEY: process.env.STRIPE_PUBLIC_KEY,
+        CHECKOUT_FREE_SHIPPING_THRESHOLD: process.env.CHECKOUT_FREE_SHIPPING_THRESHOLD,
+        CHECKOUT_FIXED_SHIPPING_COST: process.env.CHECKOUT_FIXED_SHIPPING_COST,
     },
     privateRuntimeConfig: {
         STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,

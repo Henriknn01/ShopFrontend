@@ -13,8 +13,11 @@ export default defineEventHandler(async (event) => {
         for (let i of lineItems) {
             total_cost += (i.price_data.unit_amount/100)*i.quantity;
         }
+        const standardShippingCost:number = Number(process.env.CHECKOUT_FIXED_STANDARD_SHIPPING_COST)*100
+        const expressShippingCost:number = Number(process.env.CHECKOUT_FIXED_EXPRESS_SHIPPING_COST)*100
+
         let standardShipping = {};
-        if (total_cost > 100) {
+        if (total_cost > Number(process.env.CHECKOUT_FREE_SHIPPING_THRESHOLD)) {
             standardShipping = {
                 shipping_rate_data: {
                     type: 'fixed_amount',
@@ -30,7 +33,7 @@ export default defineEventHandler(async (event) => {
             standardShipping = {
                 shipping_rate_data: {
                     type: 'fixed_amount',
-                    fixed_amount: {amount: 10000, currency: 'nok'},
+                    fixed_amount: {amount: standardShippingCost, currency: 'nok'},
                     display_name: 'Standard shipping',
                     delivery_estimate: {
                         minimum: {unit: 'business_day', value: 5},
@@ -42,7 +45,7 @@ export default defineEventHandler(async (event) => {
         let shippingOptions = [standardShipping, {
             shipping_rate_data: {
                 type: 'fixed_amount',
-                fixed_amount: {amount: 50000, currency: 'nok'},
+                fixed_amount: {amount: expressShippingCost, currency: 'nok'},
                 display_name: 'Express shipping',
                 delivery_estimate: {
                     minimum: {unit: 'business_day', value: 1},

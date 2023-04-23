@@ -48,8 +48,8 @@ export const useShoppingCartStore = defineStore('ShoppingCart',{
             tax: 0,
             total: 0,
             taxRate: 0.25,
-            fixedShippingCost: 5,
-            freeShippingThreshold: 100,
+            fixedShippingCost: Number(process.env.CHECKOUT_FIXED_STANDARD_SHIPPING_COST),
+            freeShippingThreshold: Number(process.env.CHECKOUT_FREE_SHIPPING_THRESHOLD),
             stripeSessionID: "",
         }
     },
