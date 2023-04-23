@@ -179,11 +179,11 @@ export const useShoppingCartStore = defineStore('ShoppingCart',{
             window.location.replace(session.url);
         },
 
+        /*
         async expirePaymentSession() {
-            const session = await stripe.checkout.sessions.expire(
-                'cs_test_a1SvqsRBYFzM7wP3emuOltKL5DwoQouJ4B8y1lezsmEDk62fRaNzMisKsA'
-            );
+            const session = await stripe.checkout.sessions.expire();
         }
+        */
     },
     persist: true,
 })
