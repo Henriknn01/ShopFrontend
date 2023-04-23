@@ -4,7 +4,13 @@ export default defineNuxtConfig({
     modules: [
         '@nuxtjs/tailwindcss',
         '@sidebase/nuxt-auth',
-        //'@pina/nuxt'
+        [
+            '@pinia/nuxt',
+            {
+                autoImports: ['defineStore', 'acceptHMRUpdate'],
+            },
+        ],
+        '@pinia-plugin-persistedstate/nuxt',
     ],
     auth: {
         // The module is enabled. Change this to disable the module
@@ -13,10 +19,16 @@ export default defineNuxtConfig({
         origin: 'http://localhost:3000',
         enableGlobalAppMiddleware: true,
     },
-    runtimeConfig: {
-        apiBaseUrl: 'http://localhost:8000', // can be overridden by NUXT_API_BASE_URL environment variable
-        public: {
-            apiBase: '', // can be overridden by NUXT_PUBLIC_API_BASE environment variable
-        }
+    publicRuntimeConfig: {
+        FRONTEND_URL: process.env.FRONTEND_URL,
+        BACKEND_API_URL: process.env.BACKEND_API_URL,
+        STRIPE_PUBLIC_KEY: process.env.STRIPE_PUBLIC_KEY,
+    },
+    privateRuntimeConfig: {
+        STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+        OPENAI_API_KEY: process.env.OPENAI_API_KEY,
+    },
+    imports: {
+        dirs: ['stores']
     }
 })
