@@ -27,6 +27,7 @@ export default defineNuxtConfig({
         CHECKOUT_FIXED_SHIPPING_COST: process.env.CHECKOUT_FIXED_SHIPPING_COST,
     },
     privateRuntimeConfig: {
+        NUXT_SECRET: process.env.NUXT_SECRET,
         STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
         OPENAI_API_KEY: process.env.OPENAI_API_KEY,
     },
