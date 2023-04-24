@@ -107,9 +107,9 @@
 
             <!-- Logo -->
             <div class="ml-4 flex lg:ml-0">
-              <a href="#">
-                <span class="sr-only">Your Company</span>
-                <img class="h-8 w-auto" src="https://norheimweb.ams3.cdn.digitaloceanspaces.com/assets/wave-logo-shape.png" alt="" />
+              <a href="/">
+                <span class="sr-only">Wave</span>
+                <img class="h-8 w-auto" src="https://norheimweb.ams3.cdn.digitaloceanspaces.com/assets/wave-logo-shape.png" alt="#" />
               </a>
             </div>
 
@@ -223,40 +223,8 @@ import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@her
 
 const { signOut } = useAuth()
 
-let CatIndoorsections = []; //12
-let {data: CatIndoorSubcatagories } = await useFetch(`http://127.0.0.1:8000/productcategory/5/subcategories/`)
-let CatindoorSubcatagoriesList = CatIndoorSubcatagories.value["subcatagories"];
-
-for (let i = 0; i < CatindoorSubcatagoriesList.length; i++) {
-  const {data: CategoryName } = await useFetch(`http://127.0.0.1:8000/productcategory/${CatindoorSubcatagoriesList[i]}/?format=json`)
-  CatIndoorsections.push({name: CategoryName.value.name, href: "#"})
-}
-let CatOutdoorsections = []; //12
-let {data: Subcatagories } = await useFetch(`http://127.0.0.1:8000/productcategory/11/subcategories/`)
-let SubcatagoriesList = Subcatagories.value["subcatagories"];
-
-for (let i = 0; i < SubcatagoriesList.length; i++) {
-  const {data: CategoryName } = await useFetch(`http://127.0.0.1:8000/productcategory/${SubcatagoriesList[i]}/?format=json`)
-  CatOutdoorsections.push({name: CategoryName.value.name, href: "#"})
-}
-
-let allDogs = []; //12
-let {data: allDogsSubcatagories } = await useFetch(`http://127.0.0.1:8000/productcategory/4/subcategories/`)
-let allDogsSubcatagoriesList = allDogsSubcatagories.value["subcatagories"];
-
-for (let i = 0; i < allDogsSubcatagoriesList.length; i++) {
-  const {data: CategoryName } = await useFetch(`http://127.0.0.1:8000/productcategory/${allDogsSubcatagoriesList[i]}/?format=json`)
-  allDogs.push({name: CategoryName.value.name, href: "#"})
-}
-
-let dogHelths = []; //12
-let {data: dogHelthsSubcatagories } = await useFetch(`http://127.0.0.1:8000/productcategory/17/subcategories/`)
-let dogHelthsSubcatagoriesList = dogHelthsSubcatagories.value["subcatagories"];
-
-for (let i = 0; i < dogHelthsSubcatagoriesList.length; i++) {
-  const {data: CategoryName } = await useFetch(`http://127.0.0.1:8000/productcategory/${dogHelthsSubcatagoriesList[i]}/?format=json`)
-  dogHelths.push({name: CategoryName.value.name, href: "#"})
-}
+let {data: data } = await useFetch(`http://127.0.0.1:8000/productcategory/1/get_sections/`)
+let {data: featuredCollections } = await useFetch(`http://127.0.0.1:8000/productlist/1/get_featured_list/`)
 
 
 
@@ -267,39 +235,33 @@ const navigation = {
       name: 'Cats',
       featured: [
         {
-          name: "Cat bed collection",
-          href: '#',
-          imageSrc: 'https://get.musti.media/shops/mno/resources/ftp/productpage/c0/kissan-pesa-basic-tweety-az-c0.jpg',
-          imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.',
+          name: featuredCollections.value["catSection"]["featuredCollection"][0]["name"],
+          href: featuredCollections.value["catSection"]["featuredCollection"][0]["href"],
+          imageSrc: featuredCollections.value["catSection"]["featuredCollection"][0]["imageSrc"],
+          imageAlt: featuredCollections.value["catSection"]["featuredCollection"][0]["imageAlt"],
         },
         {
-          name: 'Huge cat food sale!',
-          href: '#',
-          imageSrc: 'https://get.musti.media/shops/mno/resources/ftp/productpage/24/royal-canin-maine-coon-24.jpg',
-          imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
+          name: featuredCollections.value["catSection"]["featuredCollection"][1]["name"],
+          href: featuredCollections.value["catSection"]["featuredCollection"][1]["href"],
+          imageSrc: featuredCollections.value["catSection"]["featuredCollection"][1]["imageSrc"],
+          imageAlt: featuredCollections.value["catSection"]["featuredCollection"][1]["imageAlt"],
         },
       ],
       sections: [
         {
-          id: 'Cat',
-          name: 'For all cats',
-          items: CatIndoorsections,
+          id: data.value["catSection"]["sections"][0]["id"],
+          name: data.value["catSection"]["sections"][0]["Name"],
+          items: data.value["catSection"]["sections"][0]["items"],
         },
         {
-          id: 'OutdoorCat',
-          name: 'Outdoor cat',
-          items: CatOutdoorsections,
+          id: data.value["catSection"]["sections"][1]["id"],
+          name: data.value["catSection"]["sections"][1]["Name"],
+          items: data.value["catSection"]["sections"][1]["items"],
         },
         {
-          id: 'brands',
-          name: 'Brands',
-          items: [
-            { name: 'Full Nelson', href: '#' },
-            { name: 'My Way', href: '#' },
-            { name: 'Re-Arranged', href: '#' },
-            { name: 'Counterfeit', href: '#' },
-            { name: 'Significant Other', href: '#' },
-          ],
+          id: data.value["catSection"]["sections"][2]["id"],
+          name: data.value["catSection"]["sections"][2]["Name"],
+          items: data.value["catSection"]["sections"][2]["items"],
         },
       ],
     },
@@ -308,39 +270,33 @@ const navigation = {
       name: 'Dogs',
       featured: [
         {
-          name: 'Signature food collection',
-          href: '#',
-          imageSrc: 'https://get.musti.media/shops/mno/resources/ftp/productpage/85/vom-og-hundemat-puppy-85.jpg',
-          imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
+          name: featuredCollections.value["dogSection"]["featuredCollection"][0]["name"],
+          href: featuredCollections.value["dogSection"]["featuredCollection"][0]["href"],
+          imageSrc: featuredCollections.value["dogSection"]["featuredCollection"][0]["imageSrc"],
+          imageAlt: featuredCollections.value["dogSection"]["featuredCollection"][0]["imageAlt"],
         },
         {
-          name: 'Artisian bone collection',
-          href: '#',
-          imageSrc: 'https://get.musti.media/shops/mno/resources/ftp/productpage/27/nylabone-puppy-startpaket-27.jpg',
-          imageAlt:
-              'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
+          name: featuredCollections.value["dogSection"]["featuredCollection"][1]["name"],
+          href: featuredCollections.value["dogSection"]["featuredCollection"][1]["href"],
+          imageSrc: featuredCollections.value["dogSection"]["featuredCollection"][1]["imageSrc"],
+          imageAlt: featuredCollections.value["dogSection"]["featuredCollection"][1]["imageAlt"],
         },
       ],
       sections: [
         {
-          id: 'foralldogs',
-          name: 'For all dogs',
-          items: allDogs,
+          id: data.value["dogSection"]["sections"][0]["id"],
+          name: data.value["dogSection"]["sections"][0]["Name"],
+          items: data.value["dogSection"]["sections"][0]["items"],
         },
         {
-          id: 'DogHealth',
-          name: 'keep your dog healthy',
-          items: dogHelths,
+          id: data.value["dogSection"]["sections"][1]["id"],
+          name: data.value["dogSection"]["sections"][1]["Name"],
+          items: data.value["dogSection"]["sections"][1]["items"],
         },
         {
-          id: 'brands',
-          name: 'Brands',
-          items: [
-            { name: 'Re-Arranged', href: '#' },
-            { name: 'Counterfeit', href: '#' },
-            { name: 'Full Nelson', href: '#' },
-            { name: 'My Way', href: '#' },
-          ],
+          id: data.value["dogSection"]["sections"][2]["id"],
+          name: data.value["dogSection"]["sections"][2]["Name"],
+          items: data.value["dogSection"]["sections"][2]["items"],
         },
       ],
     },
@@ -349,47 +305,41 @@ const navigation = {
       name: 'Misc',
       featured: [
         {
-          name: 'Lizard potions',
-          href: '#',
-          imageSrc: 'https://media1.cgtrader.com/variants/YT2YtYYwfQaoPNZE2minMYLa/e44aa6a6359827c9089792cde0c079681b83d3b5c3037cc0525c25607e54355b/3wqtwqehyhwjRJ.png',
-          imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
+          name: featuredCollections.value["miscSection"]["featuredCollection"][0]["name"],
+          href: featuredCollections.value["miscSection"]["featuredCollection"][0]["href"],
+          imageSrc: featuredCollections.value["miscSection"]["featuredCollection"][0]["imageSrc"],
+          imageAlt: featuredCollections.value["miscSection"]["featuredCollection"][0]["imageAlt"],
         },
         {
-          name: 'Snake shed kit',
-          href: '#',
-          imageSrc: 'https://vgraphs.com/images/weapons/valorant-snakebite-shorty-profile-icon.png',
-          imageAlt:
-              'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
+          name: featuredCollections.value["miscSection"]["featuredCollection"][1]["name"],
+          href: featuredCollections.value["miscSection"]["featuredCollection"][1]["href"],
+          imageSrc: featuredCollections.value["miscSection"]["featuredCollection"][1]["imageSrc"],
+          imageAlt: featuredCollections.value["miscSection"]["featuredCollection"][1]["imageAlt"],
         },
       ],
       sections: [
         {
-          id: 'Reptiles',
-          name: 'Reptiles',
-          items: [],
+          id: data.value["miscSection"]["sections"][0]["id"],
+          name: data.value["miscSection"]["sections"][0]["Name"],
+          items: data.value["miscSection"]["sections"][0]["items"],
         },
         {
-          id: 'Aviation',
-          name: 'Aviation',
-          items: [],
+          id: data.value["miscSection"]["sections"][1]["id"],
+          name: data.value["miscSection"]["sections"][1]["Name"],
+          items: data.value["miscSection"]["sections"][1]["items"],
         },
         {
-          id: 'brands',
-          name: 'Brands',
-          items: [
-            { name: 'Re-Arranged', href: '#' },
-            { name: 'Counterfeit', href: '#' },
-            { name: 'Full Nelson', href: '#' },
-            { name: 'My Way', href: '#' },
-          ],
+          id: data.value["miscSection"]["sections"][2]["id"],
+          name: data.value["miscSection"]["sections"][2]["Name"],
+          items: data.value["miscSection"]["sections"][2]["items"],
         },
       ],
     },
   ],
   pages: [
-    { name: 'Q&A', href: '#' },
-    { name: 'Blog', href: '#' },
-    { name: 'About us', href: '#' },
+    { name: 'Q&A', href: '/QandA' },
+    { name: 'Blog', href: '/Blog' },
+    { name: 'About us', href: '/about' },
   ],
 }
 const open = ref(false)

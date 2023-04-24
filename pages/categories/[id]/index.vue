@@ -1,5 +1,7 @@
 <template>
-    <Carousel title="Featured products" :queryset=$route.params.id limit="10"/>
+  <ShopHeader/>
+
+  <Carousel title="Featured products" :queryset=$route.params.id limit="10"/>
 </template>
 
 <script>
