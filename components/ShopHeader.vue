@@ -108,8 +108,8 @@
             <!-- Logo -->
             <div class="ml-4 flex lg:ml-0">
               <a href="/">
-                <span class="sr-only">Your Company</span>
-                <img class="h-8 w-auto" src="https://norheimweb.ams3.cdn.digitaloceanspaces.com/assets/wave-logo-shape.png" alt="" />
+                <span class="sr-only">Wave</span>
+                <img class="h-8 w-auto" src="https://norheimweb.ams3.cdn.digitaloceanspaces.com/assets/wave-logo-shape.png" alt="#" />
               </a>
             </div>
 
@@ -216,6 +216,11 @@ import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@her
 const { signOut } = useAuth()
 const shoppingCart = useShoppingCartStore();
 
+let {data: data } = await useFetch(`http://127.0.0.1:8000/productcategory/1/get_sections/`)
+let {data: featuredCollections } = await useFetch(`http://127.0.0.1:8000/productlist/1/get_featured_list/`)
+
+
+
 const navigation = {
   categories: [
     {
@@ -223,56 +228,33 @@ const navigation = {
       name: 'Cats',
       featured: [
         {
-          name: 'New Arrivals',
-          href: '#',
-          imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg',
-          imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.',
+          name: featuredCollections.value["catSection"]["featuredCollection"][0]["name"],
+          href: featuredCollections.value["catSection"]["featuredCollection"][0]["href"],
+          imageSrc: featuredCollections.value["catSection"]["featuredCollection"][0]["imageSrc"],
+          imageAlt: featuredCollections.value["catSection"]["featuredCollection"][0]["imageAlt"],
         },
         {
-          name: 'Basic Tees',
-          href: '#',
-          imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
-          imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
+          name: featuredCollections.value["catSection"]["featuredCollection"][1]["name"],
+          href: featuredCollections.value["catSection"]["featuredCollection"][1]["href"],
+          imageSrc: featuredCollections.value["catSection"]["featuredCollection"][1]["imageSrc"],
+          imageAlt: featuredCollections.value["catSection"]["featuredCollection"][1]["imageAlt"],
         },
       ],
       sections: [
         {
-          id: 'clothing',
-          name: 'Clothing',
-          items: [
-            { name: 'Tops', href: '#' },
-            { name: 'Dresses', href: '#' },
-            { name: 'Pants', href: '#' },
-            { name: 'Denim', href: '#' },
-            { name: 'Sweaters', href: '#' },
-            { name: 'T-Shirts', href: '#' },
-            { name: 'Jackets', href: '#' },
-            { name: 'Activewear', href: '#' },
-            { name: 'Browse All', href: '#' },
-          ],
+          id: data.value["catSection"]["sections"][0]["id"],
+          name: data.value["catSection"]["sections"][0]["Name"],
+          items: data.value["catSection"]["sections"][0]["items"],
         },
         {
-          id: 'accessories',
-          name: 'Accessories',
-          items: [
-            { name: 'Watches', href: '#' },
-            { name: 'Wallets', href: '#' },
-            { name: 'Bags', href: '#' },
-            { name: 'Sunglasses', href: '#' },
-            { name: 'Hats', href: '#' },
-            { name: 'Belts', href: '#' },
-          ],
+          id: data.value["catSection"]["sections"][1]["id"],
+          name: data.value["catSection"]["sections"][1]["Name"],
+          items: data.value["catSection"]["sections"][1]["items"],
         },
         {
-          id: 'brands',
-          name: 'Brands',
-          items: [
-            { name: 'Full Nelson', href: '#' },
-            { name: 'My Way', href: '#' },
-            { name: 'Re-Arranged', href: '#' },
-            { name: 'Counterfeit', href: '#' },
-            { name: 'Significant Other', href: '#' },
-          ],
+          id: data.value["catSection"]["sections"][2]["id"],
+          name: data.value["catSection"]["sections"][2]["Name"],
+          items: data.value["catSection"]["sections"][2]["items"],
         },
       ],
     },
@@ -281,63 +263,76 @@ const navigation = {
       name: 'Dogs',
       featured: [
         {
-          name: 'New Arrivals',
-          href: '#',
-          imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
-          imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
+          name: featuredCollections.value["dogSection"]["featuredCollection"][0]["name"],
+          href: featuredCollections.value["dogSection"]["featuredCollection"][0]["href"],
+          imageSrc: featuredCollections.value["dogSection"]["featuredCollection"][0]["imageSrc"],
+          imageAlt: featuredCollections.value["dogSection"]["featuredCollection"][0]["imageAlt"],
         },
         {
-          name: 'Artwork Tees',
-          href: '#',
-          imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
-          imageAlt:
-              'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
+          name: featuredCollections.value["dogSection"]["featuredCollection"][1]["name"],
+          href: featuredCollections.value["dogSection"]["featuredCollection"][1]["href"],
+          imageSrc: featuredCollections.value["dogSection"]["featuredCollection"][1]["imageSrc"],
+          imageAlt: featuredCollections.value["dogSection"]["featuredCollection"][1]["imageAlt"],
         },
       ],
       sections: [
         {
-          id: 'clothing',
-          name: 'Clothing',
-          items: [
-            { name: 'Tops', href: '#' },
-            { name: 'Pants', href: '#' },
-            { name: 'Sweaters', href: '#' },
-            { name: 'T-Shirts', href: '#' },
-            { name: 'Jackets', href: '#' },
-            { name: 'Activewear', href: '#' },
-            { name: 'Browse All', href: '#' },
-          ],
+          id: data.value["dogSection"]["sections"][0]["id"],
+          name: data.value["dogSection"]["sections"][0]["Name"],
+          items: data.value["dogSection"]["sections"][0]["items"],
         },
         {
-          id: 'accessories',
-          name: 'Accessories',
-          items: [
-            { name: 'Watches', href: '#' },
-            { name: 'Wallets', href: '#' },
-            { name: 'Bags', href: '#' },
-            { name: 'Sunglasses', href: '#' },
-            { name: 'Hats', href: '#' },
-            { name: 'Belts', href: '#' },
-          ],
+          id: data.value["dogSection"]["sections"][1]["id"],
+          name: data.value["dogSection"]["sections"][1]["Name"],
+          items: data.value["dogSection"]["sections"][1]["items"],
         },
         {
-          id: 'brands',
-          name: 'Brands',
-          items: [
-            { name: 'Re-Arranged', href: '#' },
-            { name: 'Counterfeit', href: '#' },
-            { name: 'Full Nelson', href: '#' },
-            { name: 'My Way', href: '#' },
-          ],
+          id: data.value["dogSection"]["sections"][2]["id"],
+          name: data.value["dogSection"]["sections"][2]["Name"],
+          items: data.value["dogSection"]["sections"][2]["items"],
+        },
+      ],
+    },
+    {
+      id: 'misc',
+      name: 'Misc',
+      featured: [
+        {
+          name: featuredCollections.value["miscSection"]["featuredCollection"][0]["name"],
+          href: featuredCollections.value["miscSection"]["featuredCollection"][0]["href"],
+          imageSrc: featuredCollections.value["miscSection"]["featuredCollection"][0]["imageSrc"],
+          imageAlt: featuredCollections.value["miscSection"]["featuredCollection"][0]["imageAlt"],
+        },
+        {
+          name: featuredCollections.value["miscSection"]["featuredCollection"][1]["name"],
+          href: featuredCollections.value["miscSection"]["featuredCollection"][1]["href"],
+          imageSrc: featuredCollections.value["miscSection"]["featuredCollection"][1]["imageSrc"],
+          imageAlt: featuredCollections.value["miscSection"]["featuredCollection"][1]["imageAlt"],
+        },
+      ],
+      sections: [
+        {
+          id: data.value["miscSection"]["sections"][0]["id"],
+          name: data.value["miscSection"]["sections"][0]["Name"],
+          items: data.value["miscSection"]["sections"][0]["items"],
+        },
+        {
+          id: data.value["miscSection"]["sections"][1]["id"],
+          name: data.value["miscSection"]["sections"][1]["Name"],
+          items: data.value["miscSection"]["sections"][1]["items"],
+        },
+        {
+          id: data.value["miscSection"]["sections"][2]["id"],
+          name: data.value["miscSection"]["sections"][2]["Name"],
+          items: data.value["miscSection"]["sections"][2]["items"],
         },
       ],
     },
   ],
   pages: [
-    { name: 'Misc', href: '#' },
-    { name: 'Q&A', href: '#' },
-    { name: 'Blog', href: '#' },
-    { name: 'About us', href: '#' },
+    { name: 'Q&A', href: '/QandA' },
+    { name: 'Blog', href: '/Blog' },
+    { name: 'About us', href: '/about' },
   ],
 }
 const open = ref(false)
