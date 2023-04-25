@@ -203,146 +203,45 @@
 
 
 <script setup>
-import { ref } from 'vue'
-import {
-  Dialog,
-  DialogPanel,
-  Popover,
-  PopoverButton,
-  PopoverGroup,
-  PopoverPanel,
-  Tab,
-  TabGroup,
-  TabList,
-  TabPanel,
-  TabPanels,
-  TransitionChild,
-  TransitionRoot,
-} from '@headlessui/vue'
-import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/vue/24/outline'
+  import { ref } from 'vue'
+  import {
+    Dialog,
+    DialogPanel,
+    Popover,
+    PopoverButton,
+    PopoverGroup,
+    PopoverPanel,
+    Tab,
+    TabGroup,
+    TabList,
+    TabPanel,
+    TabPanels,
+    TransitionChild,
+    TransitionRoot,
+  } from '@headlessui/vue'
+  import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/vue/24/outline'
+  import async from "async";
+  import axios from "axios";
 
-const { signOut } = useAuth()
-
-let {data: data } = await useFetch(`http://127.0.0.1:8000/productcategory/1/get_sections/`)
-let {data: featuredCollections } = await useFetch(`http://127.0.0.1:8000/productlist/1/get_featured_list/`)
-
+  const { signOut } = useAuth()
 
 
-const navigation = {
-  categories: [
-    {
-      id: 'cats',
-      name: 'Cats',
-      featured: [
-        {
-          name: featuredCollections.value["catSection"]["featuredCollection"][0]["name"],
-          href: featuredCollections.value["catSection"]["featuredCollection"][0]["href"],
-          imageSrc: featuredCollections.value["catSection"]["featuredCollection"][0]["imageSrc"],
-          imageAlt: featuredCollections.value["catSection"]["featuredCollection"][0]["imageAlt"],
-        },
-        {
-          name: featuredCollections.value["catSection"]["featuredCollection"][1]["name"],
-          href: featuredCollections.value["catSection"]["featuredCollection"][1]["href"],
-          imageSrc: featuredCollections.value["catSection"]["featuredCollection"][1]["imageSrc"],
-          imageAlt: featuredCollections.value["catSection"]["featuredCollection"][1]["imageAlt"],
-        },
-      ],
-      sections: [
-        {
-          id: data.value["catSection"]["sections"][0]["id"],
-          name: data.value["catSection"]["sections"][0]["Name"],
-          items: data.value["catSection"]["sections"][0]["items"],
-        },
-        {
-          id: data.value["catSection"]["sections"][1]["id"],
-          name: data.value["catSection"]["sections"][1]["Name"],
-          items: data.value["catSection"]["sections"][1]["items"],
-        },
-        {
-          id: data.value["catSection"]["sections"][2]["id"],
-          name: data.value["catSection"]["sections"][2]["Name"],
-          items: data.value["catSection"]["sections"][2]["items"],
-        },
-      ],
-    },
-    {
-      id: 'dogs',
-      name: 'Dogs',
-      featured: [
-        {
-          name: featuredCollections.value["dogSection"]["featuredCollection"][0]["name"],
-          href: featuredCollections.value["dogSection"]["featuredCollection"][0]["href"],
-          imageSrc: featuredCollections.value["dogSection"]["featuredCollection"][0]["imageSrc"],
-          imageAlt: featuredCollections.value["dogSection"]["featuredCollection"][0]["imageAlt"],
-        },
-        {
-          name: featuredCollections.value["dogSection"]["featuredCollection"][1]["name"],
-          href: featuredCollections.value["dogSection"]["featuredCollection"][1]["href"],
-          imageSrc: featuredCollections.value["dogSection"]["featuredCollection"][1]["imageSrc"],
-          imageAlt: featuredCollections.value["dogSection"]["featuredCollection"][1]["imageAlt"],
-        },
-      ],
-      sections: [
-        {
-          id: data.value["dogSection"]["sections"][0]["id"],
-          name: data.value["dogSection"]["sections"][0]["Name"],
-          items: data.value["dogSection"]["sections"][0]["items"],
-        },
-        {
-          id: data.value["dogSection"]["sections"][1]["id"],
-          name: data.value["dogSection"]["sections"][1]["Name"],
-          items: data.value["dogSection"]["sections"][1]["items"],
-        },
-        {
-          id: data.value["dogSection"]["sections"][2]["id"],
-          name: data.value["dogSection"]["sections"][2]["Name"],
-          items: data.value["dogSection"]["sections"][2]["items"],
-        },
-      ],
-    },
-    {
-      id: 'misc',
-      name: 'Misc',
-      featured: [
-        {
-          name: featuredCollections.value["miscSection"]["featuredCollection"][0]["name"],
-          href: featuredCollections.value["miscSection"]["featuredCollection"][0]["href"],
-          imageSrc: featuredCollections.value["miscSection"]["featuredCollection"][0]["imageSrc"],
-          imageAlt: featuredCollections.value["miscSection"]["featuredCollection"][0]["imageAlt"],
-        },
-        {
-          name: featuredCollections.value["miscSection"]["featuredCollection"][1]["name"],
-          href: featuredCollections.value["miscSection"]["featuredCollection"][1]["href"],
-          imageSrc: featuredCollections.value["miscSection"]["featuredCollection"][1]["imageSrc"],
-          imageAlt: featuredCollections.value["miscSection"]["featuredCollection"][1]["imageAlt"],
-        },
-      ],
-      sections: [
-        {
-          id: data.value["miscSection"]["sections"][0]["id"],
-          name: data.value["miscSection"]["sections"][0]["Name"],
-          items: data.value["miscSection"]["sections"][0]["items"],
-        },
-        {
-          id: data.value["miscSection"]["sections"][1]["id"],
-          name: data.value["miscSection"]["sections"][1]["Name"],
-          items: data.value["miscSection"]["sections"][1]["items"],
-        },
-        {
-          id: data.value["miscSection"]["sections"][2]["id"],
-          name: data.value["miscSection"]["sections"][2]["Name"],
-          items: data.value["miscSection"]["sections"][2]["items"],
-        },
-      ],
-    },
-  ],
-  pages: [
-    { name: 'Q&A', href: '/QandA' },
-    { name: 'Blog', href: '/Blog' },
-    { name: 'About us', href: '/about' },
-  ],
-}
-const open = ref(false)
+
+  let {data: data } = await useFetch(`http://127.0.0.1:8000/productcategory/`)
+  //let {data: featuredCollections } = await useFetch(`http://127.0.0.1:8000/productlist/1/get_featured_list/`)
+  const categories = useNavBar(data.value);
+
+  // TODO: make featuredCollections picture render same height
+  // TODO: make sure z index is the highest it can be, or slightly below ADA
+  const navigation = {
+      categories: categories,
+    pages: [
+      { name: 'Q&A', href: '/QandA' },
+      { name: 'Blog', href: '/Blog' },
+      { name: 'About us', href: '/about' },
+    ],
+  }
+  const open = ref(false)
 </script>
 <script>
 export default {

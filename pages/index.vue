@@ -57,9 +57,7 @@
       </div>
     </div>
 
-      <Carousel title="Featured products" queryset="28" limit="10"/>
-      <Carousel title="Everything you need for your dog" queryset="2" limit="10"/>
-      <Carousel title="Everything you need for your cat" queryset="1" limit="10"/>
+
 
       <ShopFooter/>
   </div>
