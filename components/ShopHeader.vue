@@ -228,8 +228,9 @@
 
 
   let {data: data } = await useFetch(`http://127.0.0.1:8000/productcategory/`)
-  //let {data: featuredCollections } = await useFetch(`http://127.0.0.1:8000/productlist/1/get_featured_list/`)
-  const categories = useNavBar(data.value);
+  let {data: featuredlist } = await useFetch(`http://127.0.0.1:8000/productlist/1/get_featured_list/`)
+
+  const categories = useNavBar(data.value, featuredlist.value);
 
   // TODO: make featuredCollections picture render same height
   // TODO: make sure z index is the highest it can be, or slightly below ADA

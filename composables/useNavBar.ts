@@ -16,10 +16,20 @@ interface Section {
 interface ConvertedCategory {
     id: string;
     name: string;
+    backednid: number;
+    featured: FeaturedList[];
     sections: Section[];
 }
 
-export default function useNavBar(categories: Category[]): ConvertedCategory[] {
+type FeaturedList = {
+    name: string;
+    href: number;
+    imageSrc: string;
+    imageAlt: string;
+    category: number;
+};
+
+export default function useNavBar(categories: Category[], FeaturedList: FeaturedList[]): ConvertedCategory[] {
     const categoryMap = new Map<number, Category>();
     const convertedCategories: ConvertedCategory[] = [];
 
@@ -48,11 +58,15 @@ export default function useNavBar(categories: Category[]): ConvertedCategory[] {
             if (category.parent_category === parentId) {
                 items.push({
                     name: category.name,
-                    href: `/${category.name.toLowerCase().replace(/\s+/g, '-')}`,
+                    href: `/categories/${category.id}`,
                 });
             }
         });
         return items;
+    }
+
+    function getProductsByCategory(products: FeaturedList[], category: number): FeaturedList[] {
+        return products.filter(product => product.category === category);
     }
 
     categories.forEach((category) => {
@@ -60,10 +74,13 @@ export default function useNavBar(categories: Category[]): ConvertedCategory[] {
             convertedCategories.push({
                 id: category.name,
                 name: category.name,
+                backednid: category.id,
+                featured: getProductsByCategory(FeaturedList, category.id),
                 sections: findSections(category.id),
             });
         }
     });
+
 
     return convertedCategories;
 }
