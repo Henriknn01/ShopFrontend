@@ -9,12 +9,12 @@ export default function useCarousel(query:number|0, productsPerPage:number|4) {
 
     const init = async () => {
         await getProducts();
-        await updateVisibleProducts()
+        updateVisibleProducts()
     }
 
     const getProducts = async () => {
         try {
-            products.value = await $fetch(process.env.BACKEND_API_URL + '/productcategory/' + queryset.value + '/?format=json');
+            products.value = await $fetch(process.env.BACKEND_API_URL + '/productlist/' + queryset.value + '/?format=json');
         } catch (e) {
             console.warn(e);
         }
@@ -29,6 +29,7 @@ export default function useCarousel(query:number|0, productsPerPage:number|4) {
     };
 
     const getLength = () => {
+        console.log(products.value.length)
         return products.value.length;
     }
 
