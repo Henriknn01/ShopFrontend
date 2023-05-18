@@ -224,7 +224,6 @@
 
 
   const categories = await useNavBar(data.value, featuredlist.value);
-  console.log(categories[0]["featured"])
   const shoppingCart = useShoppingCartStore();
 
   // TODO: make featuredCollections picture render same height

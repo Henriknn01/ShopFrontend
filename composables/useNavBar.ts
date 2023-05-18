@@ -79,9 +79,8 @@ export default async function useNavBar(categories: Category[], UnfiltredFeature
 
     async function getProductListPicture(imageID: number) {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/Image/?id=${imageID}`);
-            const imageData = await response.json();
-            return imageData[0]
+            const response = await $fetch(`http://127.0.0.1:8000/Image/?format=json&id=` + imageID);
+            return response[0];
         } catch (e) {
             console.warn(e)
         }
@@ -97,7 +96,6 @@ export default async function useNavBar(categories: Category[], UnfiltredFeature
         for (const item of foundlist) {
             const imageId = item.image[0]; // Assuming only one image ID per item, adjust accordingly if needed
             const imageData = await getProductListPicture(imageId)
-
             populatedList.push({
                 name: item.name,
                 href: "#",
@@ -105,7 +103,7 @@ export default async function useNavBar(categories: Category[], UnfiltredFeature
                 imageAlt: imageData.alt
             });
         }
-        return populatedList
+        return populatedList;
     }
 
     for (const category of categories) {
