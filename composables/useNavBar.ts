@@ -1,3 +1,5 @@
+import {fetchData} from "next-auth/client/_utils";
+
 interface Category {
     id: number;
     name: string;
@@ -21,15 +23,25 @@ interface ConvertedCategory {
     sections: Section[];
 }
 
-type FeaturedList = {
+type UnfiltredList = {
+    id: number;
     name: string;
-    href: number;
-    imageSrc: string;
-    imageAlt: string;
-    category: number;
+    slug: string;
+    featured: boolean;
+    category: number[];
+    image: number[];
+    products: number[];
+    imagesrc: string | null;
 };
 
-export default function useNavBar(categories: Category[], FeaturedList: FeaturedList[]): ConvertedCategory[] {
+type FeaturedList = {
+    name: string;
+    href: string;
+    imageSrc: string;
+    imageAlt: string;
+}
+
+export default async function useNavBar(categories: Category[], UnfiltredFeatured: UnfiltredList[]): Promise<ConvertedCategory[]> {
     const categoryMap = new Map<number, Category>();
     const convertedCategories: ConvertedCategory[] = [];
 
@@ -65,21 +77,46 @@ export default function useNavBar(categories: Category[], FeaturedList: Featured
         return items;
     }
 
-    function getProductsByCategory(products: FeaturedList[], category: number): FeaturedList[] {
-        return products.filter(product => product.category === category);
+    async function getProductListPicture(imageID: number) {
+        try {
+            const response = await $fetch(`http://127.0.0.1:8000/Image/?format=json&id=` + imageID);
+            return response[0];
+        } catch (e) {
+            console.warn(e)
+        }
     }
 
-    categories.forEach((category) => {
+    async function getProductsByCategory(products: UnfiltredList[], category: number): Promise<FeaturedList[]> {
+
+        const foundlist = products.filter(product => product.category[0] === category);
+        if(foundlist.length == 0) {
+            return []
+        }
+        const populatedList: FeaturedList[] = [];
+        for (const item of foundlist) {
+            const imageId = item.image[0]; // Assuming only one image ID per item, adjust accordingly if needed
+            const imageData = await getProductListPicture(imageId)
+            populatedList.push({
+                name: item.name,
+                href: "#",
+                imageSrc: imageData.src,
+                imageAlt: imageData.alt
+            });
+        }
+        return populatedList;
+    }
+
+    for (const category of categories) {
         if (category.parent_category === null) {
             convertedCategories.push({
                 id: category.name,
                 name: category.name,
                 backednid: category.id,
-                featured: getProductsByCategory(FeaturedList, category.id),
+                featured: await getProductsByCategory(UnfiltredFeatured, category.id),
                 sections: findSections(category.id),
             });
         }
-    });
+    }
 
 
     return convertedCategories;

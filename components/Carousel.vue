@@ -1,3 +1,4 @@
+
 <script setup>
 const props = defineProps({
     title: String,
@@ -6,6 +7,7 @@ const props = defineProps({
 });
 
 const {init, updateVisibleProducts, products, getProducts, scrollPrev, scrollNext, getLength, visibleProducts, pageIndex} = useCarousel(props.queryset, props.limit);
+
 
 await init()
 

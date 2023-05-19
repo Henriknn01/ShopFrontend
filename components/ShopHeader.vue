@@ -16,12 +16,12 @@
   <div class="bg-white">
     <!-- Mobile menu -->
     <TransitionRoot as="template" :show="open">
-      <Dialog as="div" class="relative z-40 lg:hidden" @close="open = false">
+      <Dialog as="div" class="relative z-49 lg:hidden" @close="open = false">
         <TransitionChild as="template" enter="transition-opacity ease-linear duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="transition-opacity ease-linear duration-300" leave-from="opacity-100" leave-to="opacity-0">
           <div class="fixed inset-0 bg-black bg-opacity-25" />
         </TransitionChild>
 
-        <div class="fixed inset-0 z-40 flex">
+        <div class="fixed inset-0 z-49 flex">
           <TransitionChild as="template" enter="transition ease-in-out duration-300 transform" enter-from="-translate-x-full" enter-to="translate-x-0" leave="transition ease-in-out duration-300 transform" leave-from="translate-x-0" leave-to="-translate-x-full">
             <DialogPanel class="relative flex w-full max-w-xs flex-col overflow-y-auto bg-white pb-12 shadow-xl">
               <div class="flex px-4 pt-5 pb-2">
@@ -220,12 +220,15 @@
 
 
   let {data: data } = await useFetch(`http://127.0.0.1:8000/productcategory/`)
-  let {data: featuredlist } = await useFetch(`http://127.0.0.1:8000/productlist/1/get_featured_list/`)
+  let {data: featuredlist } = await useFetch(`http://127.0.0.1:8000/productlist/?id=&name=&slug=&featured=true&created_at=&modified_at=`)
 
-  const categories = useNavBar(data.value, featuredlist.value);
+
+  const categories = await useNavBar(data.value, featuredlist.value);
+  const shoppingCart = useShoppingCartStore();
 
   // TODO: make featuredCollections picture render same height
   // TODO: make sure z index is the highest it can be, or slightly below ADA
+
   const navigation = {
       categories: categories,
     pages: [
