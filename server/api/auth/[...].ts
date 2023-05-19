@@ -86,7 +86,7 @@ export default NuxtAuthHandler({
                     const userTokens = await tokenResponse.json()
 
                     const userDetailsResponse = await fetch(
-                        "http://127.0.0.1:8000/auth/users/me/", {
+                        process.env.BACKEND_API_URL + "/auth/users/me/", {
                         method: "GET",
                         headers: {
                             "Content-Type": "application/json",
