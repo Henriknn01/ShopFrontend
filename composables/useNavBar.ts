@@ -66,7 +66,13 @@ export default function useNavBar(categories: Category[], FeaturedList: Featured
     }
 
     function getProductsByCategory(products: FeaturedList[], category: number): FeaturedList[] {
-        return products.filter(product => product.category === category);
+        try {
+            return products.filter(product => product.category === category);
+
+        } catch (e) {
+            console.warn(e)
+            return []
+        }
     }
 
     categories.forEach((category) => {
