@@ -8,10 +8,23 @@ interface BlogPost {
     href: string;
 }
 
-export default async function useBlog(): Promise<BlogPost[]> {
+export default async function useBlog(): Promise<{
+    init: () => Promise<void>;
+    blogPosts: Ref<BlogPost[]>;
+    nextPage: () => void;
+    visiblePosts: Ref<any[]>;
+    prevPage: () => void
+}> {
     let pageIndex = 0;
-    const pageSize = 5; // Number of blog posts per page
+    const pageSize = 2; // Number of blog posts per page
+    let blogPosts:Ref<any[]> = ref([]);
+    const visiblePosts:Ref<any[]> = ref([]);
 
+
+    async function init() {
+        blogPosts = await getBlogPosts()
+        updateVisiblePosts()
+    }
     async function getProductListPicture(imageID: number) {
         try {
             const response = await $fetch(
@@ -40,8 +53,8 @@ export default async function useBlog(): Promise<BlogPost[]> {
                 'http://127.0.0.1:8000/blogpost/?ordering=-created_at'
             );
             const data = await response;
-            const blogPosts = await Promise.all(
-                data.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize).map(
+            const blogPost = await Promise.all(
+                data.map(
                     async (post: any) => ({
                         id: post.id,
                         title: post.title,
@@ -53,14 +66,23 @@ export default async function useBlog(): Promise<BlogPost[]> {
                     })
                 )
             );
-            return blogPosts;
+            return blogPost;
         } catch (error) {
             console.error('Error fetching blog posts:', error);
             return [];
         }
     }
 
-    const blogPosts = await getBlogPosts();
+    const updateVisiblePosts = () => {
+        try {
+            visiblePosts.value = blogPosts.slice(pageIndex, pageIndex + pageSize);
+
+        } catch (e) {
+            console.warn(e);
+        }
+    };
+
+
 
     function nextPage() {
         pageIndex = Math.min(pageIndex + 1, Math.ceil(blogPosts.length / pageSize) - 1);
@@ -70,5 +92,12 @@ export default async function useBlog(): Promise<BlogPost[]> {
         pageIndex = Math.max(pageIndex - 1, 0);
     }
 
-    return blogPosts;
+    return {
+        init,
+        blogPosts,
+        nextPage,
+        prevPage,
+        visiblePosts,
+
+    }
 }
