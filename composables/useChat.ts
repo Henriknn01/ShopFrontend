@@ -2,7 +2,7 @@ import { ref } from 'vue'
 
 async function getInitialMsg() {
     const productsResponse = await fetch(
-        "http://127.0.0.1:8000/product/?format=json",
+        process.env.BACKEND_API_URL + "/product/?format=json",
         {
             method: "GET",
             headers: {
