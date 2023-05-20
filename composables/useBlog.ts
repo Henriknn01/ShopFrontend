@@ -69,7 +69,7 @@ export default async function useBlog(): Promise<{
                     async (post: any) => ({
                         id: post.id,
                         title: post.title,
-                        content: post.content,
+                        content: post.short_content_display,
                         imageUrl: await getProductListPicture(post.banner_image),
                         author: post.author,
                         date: post.created_at,
