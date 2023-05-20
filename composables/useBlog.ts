@@ -10,19 +10,30 @@ interface BlogPost {
 
 export default async function useBlog(): Promise<{
     init: () => Promise<void>;
-    blogPosts: Ref<BlogPost[]>;
+    getPageNumberRender: () => ({ link: string; id: number; label: string; isActive: boolean } | {
+        link: string;
+        id: number;
+        label: string;
+        isActive: boolean
+    } | { link: string; id: number; label: string; isActive: boolean })[];
+    blogPosts: Ref<any[]>;
+    getTotalLength: () => number;
     nextPage: () => void;
+    goToPage: (toPage: number) => void;
+    pageSize: number;
     visiblePosts: Ref<any[]>;
-    prevPage: () => void
+    prevPage: () => void;
+    getPageIndex: () => number
 }> {
     let pageIndex = 0;
     const pageSize = 2; // Number of blog posts per page
     let blogPosts:Ref<any[]> = ref([]);
-    const visiblePosts:Ref<any[]> = ref([]);
+    let visiblePosts:Ref<any[]> = ref([]);
+    let totalLength:number = 0;
 
 
     async function init() {
-        blogPosts = await getBlogPosts()
+        await getBlogPosts()
         updateVisiblePosts()
     }
     async function getProductListPicture(imageID: number) {
@@ -47,13 +58,13 @@ export default async function useBlog(): Promise<{
         }
     }
 
-    async function getBlogPosts(): Promise<BlogPost[]> {
+    async function getBlogPosts(): Promise<void>{
         try {
             const response = await $fetch(
                 'http://127.0.0.1:8000/blogpost/?ordering=-created_at'
             );
             const data = await response;
-            const blogPost = await Promise.all(
+            blogPosts = await Promise.all(
                 data.map(
                     async (post: any) => ({
                         id: post.id,
@@ -66,11 +77,16 @@ export default async function useBlog(): Promise<{
                     })
                 )
             );
-            return blogPost;
+
+
         } catch (error) {
             console.error('Error fetching blog posts:', error);
-            return [];
         }
+    }
+
+    function getTotalLength(): number {
+        totalLength = blogPosts.length
+        return totalLength
     }
 
     const updateVisiblePosts = () => {
@@ -85,19 +101,63 @@ export default async function useBlog(): Promise<{
 
 
     function nextPage() {
-        pageIndex = Math.min(pageIndex + 1, Math.ceil(blogPosts.length / pageSize) - 1);
+        if (pageIndex + pageSize < getTotalLength()) {
+            pageIndex += pageSize;
+            updateVisiblePosts();
+        }
     }
 
     function prevPage() {
-        pageIndex = Math.max(pageIndex - 1, 0);
+        if (pageIndex - pageSize >= 0) {
+            pageIndex -= pageSize;
+            updateVisiblePosts();
+        }
+    }
+
+    function goToPage(toPage:number) {
+        pageIndex = (toPage-1)*pageSize;
+        updateVisiblePosts()
+    }
+
+    function getPageIndex() {
+        return pageIndex
+    }
+
+    function getPageNumberRender() {
+        let pageNumberRender = []
+        for (let i = 0; i < getTotalLength()/pageSize; i++) {
+            if (getPageIndex()/pageSize == i) {
+                let obj = {
+                    id: i + 1,
+                    label: String(i + 1),
+                    link: '#',
+                    isActive: true
+                };
+                pageNumberRender.push(obj);
+            } else {
+            let obj = {
+                id: i + 1,
+                label: String(i + 1),
+                link: '#',
+                isActive: false
+            };
+                pageNumberRender.push(obj);}
+
+        }
+        return pageNumberRender;
     }
 
     return {
         init,
+        getTotalLength,
+        getPageIndex,
+        pageSize,
         blogPosts,
         nextPage,
         prevPage,
         visiblePosts,
+        goToPage,
+        getPageNumberRender,
 
     }
 }
