@@ -10,12 +10,8 @@ interface BlogPost {
 
 export default async function useBlog(): Promise<{
     init: () => Promise<void>;
-    getPageNumberRender: () => ({ link: string; id: number; label: string; isActive: boolean } | {
-        link: string;
-        id: number;
-        label: string;
-        isActive: boolean
-    } | { link: string; id: number; label: string; isActive: boolean })[];
+    getBlogPost: (blogID: number) => Promise<BlogPost>;
+    getPageNumberRender: () => any[];
     blogPosts: Ref<any[]>;
     getTotalLength: () => number;
     nextPage: () => void;
@@ -79,6 +75,31 @@ export default async function useBlog(): Promise<{
             );
 
 
+        } catch (error) {
+            console.error('Error fetching blog posts:', error);
+        }
+    }
+
+    async function getBlogPost(blogID: number): Promise<BlogPost>{
+        try {
+            const response = await $fetch(
+                'http://127.0.0.1:8000/blogpost/?ordering=-created_at&id=' + blogID
+            );
+            const data = await response;
+            const blogPost = await Promise.all(
+                data.map(
+                    async (post: any) => ({
+                        id: post.id,
+                        title: post.title,
+                        content: post.content,
+                        imageUrl: await getProductListPicture(post.banner_image),
+                        author: post.author,
+                        date: post.created_at,
+                        href: "",
+                    })
+                )
+            );
+            return blogPost[0]
         } catch (error) {
             console.error('Error fetching blog posts:', error);
         }
@@ -151,6 +172,7 @@ export default async function useBlog(): Promise<{
         init,
         getTotalLength,
         getPageIndex,
+        getBlogPost,
         pageSize,
         blogPosts,
         nextPage,
