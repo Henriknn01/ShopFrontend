@@ -6,7 +6,7 @@ interface Category {
     imagesrc: string | null;
     imagealt: string | null;
     desc: string;
-    parent_category: number | null;
+    parent_category: string | null;
 }
 
 
