@@ -1,4 +1,4 @@
-import {fetchData} from "next-auth/client/_utils";
+
 
 interface Category {
     id: number;
