@@ -13,7 +13,6 @@
       <Carousel title="Featured products" queryset="2" limit="4"/>
       <Carousel title="Everything you need for your dog" queryset="2" limit="4"/>
       <Carousel title="Everything you need for your cat" queryset="3" limit="4"/>
-      <ShopFooter/>
   </div>
 </template>
 <script>
