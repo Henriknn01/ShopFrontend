@@ -232,7 +232,7 @@
   // TODO: make sure z index is the highest it can be, or slightly below ADA
 
   const navigation = {
-      //categories: categories,
+      categories: categories,
     pages: [
       { name: 'Q&A', href: '/QandA' },
       { name: 'Blog', href: '/Blog' },
