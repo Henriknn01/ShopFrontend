@@ -16,7 +16,7 @@ export default function useCarousel(query:number|0, productsPerPage:number|4) {
         try {
             const responseProduct = await $fetch('http://127.0.0.1:8000/product/?format=json&id=' + productID);
             //const responseImage = await $fetch(process.env.BACKEND_API_URL + 'Image/?format=json&id=' + responseProduct[0].image[0]);
-            return {name: responseProduct[0].name, price: responseProduct[0].price, imagesrc: responseProduct[0].image[0].src, imagealt: responseProduct[0].image[0].alt}
+            return {id: responseProduct[0].id,name: responseProduct[0].name, price: responseProduct[0].price, imagesrc: responseProduct[0].image[0].src, imagealt: responseProduct[0].image[0].alt}
         } catch (e) {
             console.warn(e)
         }
