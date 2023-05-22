@@ -1,7 +1,10 @@
-<template>
-  <div>
+<script setup>
+const route = useRoute()
+const id = route.params.id
+</script>
 
-  </div>
+<template>
+    <category-card title="categories" :parent="id"/>
 </template>
 
 <script>

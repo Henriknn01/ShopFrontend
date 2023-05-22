@@ -9,36 +9,55 @@ export default function useCarousel(query:number|0, productsPerPage:number|4) {
 
     const init = async () => {
         await getProducts();
-        await updateVisibleProducts()
+        updateVisibleProducts()
+    }
+
+    async function getProductList(productID: number) {
+        try {
+            const responseProduct = await $fetch('http://127.0.0.1:8000/product/?format=json&id=' + productID);
+            //const responseImage = await $fetch(process.env.BACKEND_API_URL + 'Image/?format=json&id=' + responseProduct[0].image[0]);
+            return {name: responseProduct[0].name, price: responseProduct[0].price, imagesrc: responseProduct[0].image[0].src, imagealt: responseProduct[0].image[0].alt}
+        } catch (e) {
+            console.warn(e)
+        }
+
     }
 
     const getProducts = async () => {
         try {
-            products.value = await $fetch(process.env.BACKEND_API_URL + '/productcategory/' + queryset.value + '/?format=json');
+            const productListOut = await $fetch('http://127.0.0.1:8000/productlist/?format=json&id=' + queryset.value);
+            let product;
+            for(product in productListOut[0]["products"]) {
+                const productID = productListOut[0]["products"][product]
+                products.value.push(await getProductList(productID))
+            }
         } catch (e) {
-            console.warn(e);
+            console.warn(e)
         }
     }
 
     const updateVisibleProducts = () => {
         try {
-            visibleProducts.value = products.value["products"].slice(pageIndex.value, pageIndex.value + ppp.value);
+            visibleProducts.value = products.value.slice(pageIndex.value, pageIndex.value + ppp.value);
         } catch (e) {
             console.warn(e);
         }
     };
 
     const getLength = () => {
+
         return products.value.length;
     }
 
-    const scrollNext = () => {
+    function scrollNext() {
+
         if (pageIndex.value + ppp.value < getLength()) {
             pageIndex.value += ppp.value;
             updateVisibleProducts();
         }
     };
-    const scrollPrev = () => {
+
+    function scrollPrev() {
         if (pageIndex.value - ppp.value >= 0) {
             pageIndex.value -= ppp.value;
             updateVisibleProducts();
@@ -48,6 +67,7 @@ export default function useCarousel(query:number|0, productsPerPage:number|4) {
     return {
         init,
         products,
+        updateVisibleProducts,
         visibleProducts,
         pageIndex,
         getLength,
