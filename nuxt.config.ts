@@ -16,22 +16,24 @@ export default defineNuxtConfig({
         // The module is enabled. Change this to disable the module
         isEnabled: true,
         // The origin is set to the development origin. Change this when deploying to production by setting `origin` in this config before build-time or by exporting `AUTH_ORIGIN` by running `export AUTH_ORIGIN=...`
-        origin: 'http://localhost:3000',
+        origin: process.env.FRONTEND_URL,
         enableGlobalAppMiddleware: true,
     },
-    publicRuntimeConfig: {
-        FRONTEND_URL: process.env.FRONTEND_URL,
-        BACKEND_API_URL: process.env.BACKEND_API_URL,
-        STRIPE_PUBLIC_KEY: process.env.STRIPE_PUBLIC_KEY,
-        CHECKOUT_FREE_SHIPPING_THRESHOLD: process.env.CHECKOUT_FREE_SHIPPING_THRESHOLD,
-        CHECKOUT_FIXED_SHIPPING_COST: process.env.CHECKOUT_FIXED_SHIPPING_COST,
-    },
-    privateRuntimeConfig: {
+    runtimeConfig: {
         NUXT_SECRET: process.env.NUXT_SECRET,
         STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
         OPENAI_API_KEY: process.env.OPENAI_API_KEY,
+        OPENAI_ORGANIZATION: process.env.OPENAI_ORGANIZATION,
+        OPENAI_MODEL: process.env.OPENAI_MODEL,
+        public: {
+           FRONTEND_URL: process.env.FRONTEND_URL,
+           BACKEND_API_URL: process.env.BACKEND_API_URL,
+           STRIPE_PUBLIC_KEY: process.env.STRIPE_PUBLIC_KEY,
+           CHECKOUT_FREE_SHIPPING_THRESHOLD: process.env.CHECKOUT_FREE_SHIPPING_THRESHOLD || 0,
+           CHECKOUT_FIXED_SHIPPING_COST: process.env.CHECKOUT_FIXED_SHIPPING_COST,
+        },
     },
     imports: {
-        dirs: ['stores']
+        dirs: ['stores', 'interfaces']
     }
 })

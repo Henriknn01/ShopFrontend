@@ -1,41 +1,8 @@
 import {loadStripe} from "@stripe/stripe-js"
 import {defineStore} from "pinia";
-
-interface ICartItem {
-    id: number;
-    name: string;
-    desc: string;
-    img: string;
-    imgAlt: string;
-    price: number;
-    quantity: number;
-    link: string;
-}
-
-interface ICartState {
-    cart: ICartItem[];
-    cartCount: number;
-    fixedShippingCost: number;
-    freeShippingThreshold: number;
-    shipping: number;
-    subtotal: number;
-    tax: number;
-    taxRate: number;
-    total: number;
-    stripeSessionID: string,
-}
-
-interface ILineItem {
-    price_data: {
-        currency: string,
-        product_data: {
-            name: string,
-            images: string[],
-        },
-        unit_amount: number,
-    },
-    quantity: number,
-}
+import {ICartItem} from "../interfaces/ICartItem";
+import {ICartState} from "../interfaces/ICartState";
+import {ILineItem} from "../interfaces/ILineItem";
 
 // @ts-ignore
 export const useShoppingCartStore = defineStore('ShoppingCart',{
@@ -55,6 +22,7 @@ export const useShoppingCartStore = defineStore('ShoppingCart',{
     },
     actions: {
         addItem(item: ICartItem) {
+            console.log(item);
             const duplicate = this.cart.find(i => item.id == i.id);
             if (duplicate) {
                 duplicate.quantity += 1;

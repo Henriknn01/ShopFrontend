@@ -47,8 +47,7 @@
       </div>
     </div>
     <hr class="w-1/2 text-center mx-auto border-t-2">
-      <Carousel title="Featured products" queryset="1" limit="10"/>
-    <ShopFooter/>
+    <Carousel title="Featured products" queryset="1" limit="10"/>
   </div>
 </template>
 

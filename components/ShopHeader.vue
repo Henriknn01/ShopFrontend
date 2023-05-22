@@ -72,22 +72,20 @@
                 </div>
               </div>
 
-              <div class="space-y-6 border-t border-gray-200 py-6 px-4">
+              <div class="space-y-6 border-t border-gray-200 py-6 px-4" v-if="status === 'unauthenticated'">
                 <div class="flow-root">
-                  <a href="#" class="-m-2 block p-2 font-medium text-gray-900" @click="signOut({ callbackUrl: '/login' })">Sign in</a>
+                  <a href="/login" class="-m-2 block p-2 font-medium text-gray-900">Sign in</a>
                 </div>
                 <div class="flow-root">
                   <a href="#" class="-m-2 block p-2 font-medium text-gray-900">Create account</a>
                 </div>
               </div>
-
-              <div class="border-t border-gray-200 py-6 px-4">
-                <a href="#" class="-m-2 flex items-center p-2">
-                  <img src="https://tailwindui.com/img/flags/flag-canada.svg" alt="" class="block h-auto w-5 flex-shrink-0" />
-                  <span class="ml-3 block text-base font-medium text-gray-900">CAD</span>
-                  <span class="sr-only">, change currency</span>
-                </a>
-              </div>
+                <div class="space-y-6 border-t border-gray-200 py-6 px-4" v-else-if="status === 'authenticated'">
+                    <div class="flow-root">
+                        <a href="#" class="-m-2 block p-2 font-medium text-gray-900" @click="signOut({ callbackUrl: '/login' })">Sign out</a>
+                    </div>
+                    <img class="w-12 h-12 rounded-full" :src="'https://api.dicebear.com/6.x/initials/svg?scale=80&seed='+data.user.email">
+                </div>
             </DialogPanel>
           </TransitionChild>
         </div>
@@ -95,7 +93,7 @@
     </TransitionRoot>
 
     <header class="relative bg-white">
-      <p class="flex h-10 items-center justify-center bg-blue-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">Get free delivery on orders over $100</p>
+      <p class="flex h-10 items-center justify-center bg-blue-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8" v-if="config.public.CHECKOUT_FREE_SHIPPING_THRESHOLD > 0">Get free delivery on orders over {{ config.public.CHECKOUT_FREE_SHIPPING_THRESHOLD }} kr</p>
 
       <nav aria-label="Top" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="border-b border-gray-200">
@@ -163,11 +161,15 @@
             </PopoverGroup>
 
             <div class="ml-auto flex items-center">
-              <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                <a href="#" class="text-sm font-medium text-gray-700 hover:text-gray-800" @click="signOut({ callbackUrl: '/login' })">Sign in</a>
+              <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6" v-if="status === 'unauthenticated'">
+                <a href="/login)" class="text-sm font-medium text-gray-700 hover:text-gray-800">Sign in</a>
                 <span class="h-6 w-px bg-gray-200" aria-hidden="true" />
                 <a href="#" class="text-sm font-medium text-gray-700 hover:text-gray-800">Create account</a>
               </div>
+                <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6" v-else-if="status === 'authenticated'">
+                    <a href="#" class="text-sm font-medium text-gray-700 hover:text-gray-800" @click="signOut({ callbackUrl: '/login' })">Sign out</a>
+                    <img class="rounded-full h-7 w-7" :src="'https://api.dicebear.com/6.x/initials/svg?scale=80&seed='+data.user.email">
+                </div>
 
               <!-- Search -->
               <div class="flex lg:ml-6">
@@ -211,23 +213,24 @@
     TransitionChild,
     TransitionRoot,
   } from '@headlessui/vue'
-  import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/vue/24/outline'
-  import async from "async";
-  import axios from "axios";
+  import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/vue/24/outline';
+  import {useShoppingCartStore} from "../stores/ShoppingCart";
 
-  const { signOut } = useAuth()
+  const config = useRuntimeConfig();
 
+  const { signOut, status, data } = useAuth();
 
+  const shoppingCart = useShoppingCartStore();
 
-  let {data: data } = await useFetch(`http://127.0.0.1:8000/productcategory/`)
-  let {data: featuredlist } = await useFetch(`http://127.0.0.1:8000/productlist/1/get_featured_list/`)
+  //let {data: cat } = await useFetch(`http://127.0.0.1:8000/productcategory/`);
+  //let {data: featuredlist } = await useFetch(`http://127.0.0.1:8000/productlist/1/get_featured_list/`);
 
-  const categories = useNavBar(data.value, featuredlist.value);
+  //const categories = useNavBar(cat.value, featuredlist.value);
 
   // TODO: make featuredCollections picture render same height
   // TODO: make sure z index is the highest it can be, or slightly below ADA
   const navigation = {
-      categories: categories,
+      //categories: categories,
     pages: [
       { name: 'Q&A', href: '/QandA' },
       { name: 'Blog', href: '/Blog' },

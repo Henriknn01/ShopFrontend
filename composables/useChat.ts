@@ -11,7 +11,7 @@ async function getInitialMsg() {
             },
         }
     );
-    const productsList = await productsResponse.json()
+    const productsList = productsResponse.json
 
     const initialMsg = [
         {

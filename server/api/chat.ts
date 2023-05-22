@@ -2,7 +2,7 @@ import {Configuration, OpenAIApi} from "openai";
 
 export default defineEventHandler(async (event) => {
     const openaiConfiguration = new Configuration({
-        organization: "org-BhT1D7t2vToLtJS9fUlNF4bb",
+        organization: process.env.OPENAI_ORGANIZATION,
         apiKey: process.env.OPENAI_API_KEY,
     });
     const openai = new OpenAIApi(openaiConfiguration);
@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
         const body = await readBody(event)
 
         const response = await openai.createChatCompletion({
-            model: "gpt-3.5-turbo",
+            model: process.env.OPENAI_MODEL,
             messages: body.messages,
         });
         return response.data.choices[0].message

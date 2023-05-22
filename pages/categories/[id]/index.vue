@@ -1,6 +1,7 @@
 <template>
-  <ShopHeader/>
+  <div>
 
+  </div>
 </template>
 
 <script>

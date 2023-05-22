@@ -4,16 +4,13 @@ const props = defineProps({
     queryset: Number,
     limit: Number,
 });
-definePageMeta({
-    layout: "products"
-})
 
 const {init, products, getProducts, scrollPrev, scrollNext, getLength, visibleProducts, pageIndex} = useCarousel(props.queryset, props.limit);
 
 </script>
 
 <template>
-  <div class="mx-auto max-w-7xl py-6 px-4 sm:py-12 sm:px-6 lg:max-w-7xl lg:px-8">
+  <div>
     <h2 class="text-2xl font-bold text-gray-900 mb-12">{{ title }}</h2>
     <div class="relative" v-if="getLength>0">
       <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 items-start overflow-hidden" style="max-width: 100%;">
