@@ -13,7 +13,7 @@ import { TrashIcon } from "@heroicons/vue/24/outline";
                     <div class="border-y flex inline-flex items-center py-6 w-full">
                         <div class="flex-none h-32 w-32">
                             <a :href="item.link">
-                                <img :src="item.img" :alt="item.imgAlt">
+                                <img class="rounded h-full w-full object-cover" :src="item.img" :alt="item.imgAlt">
                             </a>
                         </div>
                         <div class="flex-1">
@@ -21,7 +21,7 @@ import { TrashIcon } from "@heroicons/vue/24/outline";
                                 <div class="m-4">
                                     <h2 class="text-sm font-semibold mb-1"> {{item.name}}</h2>
                                     <h3 class="text-sm font-light text-gray-500 mb-1">{{item.desc}}</h3>
-                                    <h3 class="text-sm font-semibold">${{item.price}}</h3>
+                                    <h3 class="text-sm font-semibold">{{item.price}} kr</h3>
                                 </div>
                             </a>
                         </div>
@@ -50,19 +50,19 @@ import { TrashIcon } from "@heroicons/vue/24/outline";
                       <h2 class="font-semibold text-gray-800 text-xl mb-2">Order summary</h2>
                       <div class="flex flex-row py-4 border-b text-sm">
                           <h4 class="flex-1 text-gray-600">Subtotal</h4>
-                          <h4 class="text-gray-900">${{ shoppingCart.subtotal }}</h4>
+                          <h4 class="text-gray-900">{{ shoppingCart.subtotal }} kr</h4>
                       </div>
                       <div class="flex flex-row py-4 border-b text-sm">
                           <h4 class="flex-1 text-gray-600">Shipping estimate</h4>
-                          <h4 class="text-gray-900">${{shoppingCart.shipping}}</h4>
+                          <h4 class="text-gray-900">{{shoppingCart.shipping}} kr</h4>
                       </div>
                       <div class="flex flex-row py-4 border-b text-sm">
                           <h4 class="flex-1 text-gray-600">Tax estimate</h4>
-                          <h4 class="text-gray-900">${{shoppingCart.tax}}</h4>
+                          <h4 class="text-gray-900">{{shoppingCart.tax}} kr</h4>
                       </div>
                       <div class="flex flex-row py-4 font-semibold text-lg">
                           <h4 class="flex-1 text-gray-800">Order total</h4>
-                          <h4 class="text-gray-900">${{shoppingCart.total}}</h4>
+                          <h4 class="text-gray-900">{{shoppingCart.total}} kr</h4>
                       </div>
                       <button @click="shoppingCart.makePayment" v-if="shoppingCart.cartCount > 0" class="p-4 bg-indigo-600 rounded-lg text-white w-full mt-6">Checkout</button>
                       <button v-else class="p-4 bg-gray-600 rounded-lg text-white w-full mt-6" disabled>Checkout</button>

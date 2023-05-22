@@ -20,6 +20,7 @@ export default function useCarousel(query:number|0, productsPerPage:number|4) {
         } catch (e) {
             console.warn(e)
         }
+
     }
 
     const getProducts = async () => {
@@ -38,7 +39,6 @@ export default function useCarousel(query:number|0, productsPerPage:number|4) {
     const updateVisibleProducts = () => {
         try {
             visibleProducts.value = products.value.slice(pageIndex.value, pageIndex.value + ppp.value);
-
         } catch (e) {
             console.warn(e);
         }
@@ -50,11 +50,13 @@ export default function useCarousel(query:number|0, productsPerPage:number|4) {
     }
 
     function scrollNext() {
+
         if (pageIndex.value + ppp.value < getLength()) {
             pageIndex.value += ppp.value;
             updateVisibleProducts();
         }
     };
+
     function scrollPrev() {
         if (pageIndex.value - ppp.value >= 0) {
             pageIndex.value -= ppp.value;

@@ -77,6 +77,7 @@ export default async function useNavBar(categories: Category[], UnfiltredFeature
         return items;
     }
 
+
     async function getProductListPicture(imageID: number) {
         try {
             const response = await $fetch(`http://127.0.0.1:8000/Image/?format=json&id=` + imageID);
