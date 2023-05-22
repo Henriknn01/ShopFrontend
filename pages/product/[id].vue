@@ -43,9 +43,6 @@ if (p.value.image.length > 0) {
             <h1>{{error}}</h1>
         </div>
         <div v-else>
-            <div class="my-6">
-                <h5 class="font-light">Home / Dogs / Leashes / <span class="text-gray-500">{{product.name}}</span></h5>
-            </div>
             <div class="grid grid-cols-12 auto-rows-auto gap-12">
                 <div class="col-span-12 md:col-span-6 h-screen">
                     <img class="w-full rounded-lg h-2/3 object-cover object-center" v-bind:src="selectedImage.src" v-bind:alt="selectedImage.alt"/>

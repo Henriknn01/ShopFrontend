@@ -14,9 +14,9 @@ const items = await useCategoryCard(data, props.parent)
 </script>
 
 <template>
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="mx-auto max-w-2xl py-6 sm:py-12 lg:max-w-none lg:py-22">
-            <h2 class="text-2xl font-bold text-gray-900">{{ title }}</h2>
+    <div>
+        <div class="mx-auto max-w-2xl pb-3 sm:pb-6 lg:max-w-none lg:py-22">
+            <h2 class="text-3xl font-bold text-gray-900">{{ title }}</h2>
 
             <div class="mt-0 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0">
                 <div v-for="item in items" :key="item.id" class="group relative">
