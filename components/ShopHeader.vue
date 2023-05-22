@@ -84,7 +84,7 @@
                     <div class="flow-root">
                         <a href="#" class="-m-2 block p-2 font-medium text-gray-900" @click="signOut({ callbackUrl: '/login' })">Sign out</a>
                     </div>
-                    <img class="w-12 h-12 rounded-full" :src="'https://api.dicebear.com/6.x/initials/svg?scale=80&seed='+data.user.email">
+                    <img class="w-12 h-12 rounded-full" :src="'https://api.dicebear.com/6.x/initials/svg?scale=80&seed='+data.user.email"  alt="profile picture header">
                 </div>
             </DialogPanel>
           </TransitionChild>
@@ -168,7 +168,7 @@
               </div>
                 <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6" v-else-if="status === 'authenticated'">
                     <a href="#" class="text-sm font-medium text-gray-700 hover:text-gray-800" @click="signOut({ callbackUrl: '/login' })">Sign out</a>
-                    <img class="rounded-full h-7 w-7" :src="'https://api.dicebear.com/6.x/initials/svg?scale=80&seed='+data.user.email">
+                    <img class="rounded-full h-7 w-7" :src="'https://api.dicebear.com/6.x/initials/svg?scale=80&seed='+data.user.email" alt="profile picture header">
                 </div>
 
               <!-- Search -->
