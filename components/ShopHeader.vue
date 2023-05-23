@@ -222,14 +222,66 @@
 
   const shoppingCart = useShoppingCartStore();
 
-  let {data: categoryData } = await useFetch(`http://127.0.0.1:8000/productcategory/`)
-  let {data: featuredlist } = await useFetch(`http://127.0.0.1:8000/productlist/?id=&name=&slug=&featured=true&created_at=&modified_at=`)
+  let categories = []
+  let {data: categoryData } = await useFetch(config.public.BACKEND_API_URL + `/productcategory/`)
+  let {data: featuredlist } = await useFetch(config.public.BACKEND_API_URL + `/productlist/?featured=true`)
 
+  function convert(input1, input2) {
+      let dict = {};
+      let topLevelCategories = [];
 
-  const categories = await useNavBar(categoryData.value, featuredlist.value);
+      // Create a dictionary where each key is a category id and the value is an object representing the category
+      for (let category of input1) {
+          dict[category.id] = {
+              id: category.id,
+              name: category.name,
+              featured: [],
+              sections: [],
+          };
+      }
 
-  // TODO: make featuredCollections picture render same height
-  // TODO: make sure z index is the highest it can be, or slightly below ADA
+      // Add child categories to their respective parent category
+      for (let category of input1) {
+          if (category.parent_category !== null) {
+              let parent = dict[category.parent_category];
+              parent.sections.push({
+                  id: category.name,  // Here, I'm assuming you want the category name as the section id
+                  name: category.name,
+                  items: [{ name: category.name, href: category.id.toString() }],
+              });
+          }
+      }
+
+      // Add products to their respective categories
+      for (let product of input2) {
+          for (let categoryId of product.category) {
+              let category = dict[categoryId];
+              if (category !== undefined && product.featured) {
+                  category.featured.push({
+                      name: product.name,
+                      href: product.id.toString(),
+                      imageSrc: product.image[0]?.src || "",
+                      imageAlt: product.image[0]?.alt || "",
+                  });
+              }
+          }
+      }
+
+      // Identify top level categories (those with no parent_category)
+      for (let category of input1) {
+          if (category.parent_category === null) {
+              topLevelCategories.push(dict[category.id]);
+          }
+      }
+
+      return topLevelCategories;
+  }
+
+  try {
+      const categories = convert(categoryData.value, featuredlist.value)
+
+  } catch (e) {
+  }
 
   const navigation = {
       categories: categories,
