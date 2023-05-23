@@ -4,10 +4,10 @@ const props = defineProps({
     parent: String,
 });
 const items = ref([]);
+const config = useRuntimeConfig();
 try {
-    let {data: categories } = await useFetch(process.env.BACKEND_API_URL + `/productcategory/?parent_category=` + props.parent)
+    let {data: categories } = await useFetch(config.public.BACKEND_API_URL + `/productcategory/?parent_category=` + props.parent)
     for (const category of await categories.value) {
-        console.log(category)
         if (category.image === null) {
             items.value.push({
                 id: category.id,
@@ -31,9 +31,6 @@ try {
 } catch (e) {
     console.warn(e)
 }
-
-
-console.log(items)
 
 </script>
 
