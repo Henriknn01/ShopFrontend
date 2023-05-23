@@ -11,13 +11,14 @@ let visibleProducts = ref([]);
 let pageIndex = 0
 let products = []
 const IntLimit = parseInt(props.limit)
+
+const { data: productList, pending, error, refresh } = await useFetch(config.public.BACKEND_API_URL + "/productlist/" + props.queryset);
 try {
-    const { data: productList, pending, error, refresh } = await useFetch(config.public.BACKEND_API_URL + "/productlist/" + props.queryset);
-    products = productList.value.products
-} catch (e){
-    console.warn(e)
+    products = await productList.value.products
+} catch (e) {
     products = []
 }
+
 
 
 const updateVisibleProducts = () => {
