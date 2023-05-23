@@ -80,14 +80,14 @@ export default async function useNavBar(categories: Category[], UnfiltredFeature
 
     async function getProductListPicture(imageID: number) {
         try {
-            const response = await $fetch(`http://127.0.0.1:8000/image/?format=json&id=` + imageID);
+            const response = await $fetch(config.public.BACKEND_API_URL +`/image/?format=json&id=` + imageID);
             return response[0];
         } catch (e) {
             console.warn(e)
         }
     }
 
-    async function getProductsByCategory(products: UnfiltredList[], category: number): Promise<FeaturedList[]> {
+    async function getProductListByCategory(products: UnfiltredList[], category: number): Promise<FeaturedList[]> {
 
         const foundlist = products.filter(product => product.category[0] === category);
         if(foundlist.length == 0) {
@@ -113,7 +113,7 @@ export default async function useNavBar(categories: Category[], UnfiltredFeature
                 id: category.name,
                 name: category.name,
                 backednid: category.id,
-                featured: await getProductsByCategory(UnfiltredFeatured, category.id),
+                featured: await getProductListByCategory(UnfiltredFeatured, category.id),
                 sections: findSections(category.id),
             });
         }
