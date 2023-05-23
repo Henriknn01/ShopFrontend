@@ -6,7 +6,6 @@ const props = defineProps({
 const items = ref([]);
 const config = useRuntimeConfig();
 let parent = props.parent
-console.log(parent)
 try {
     let {data: categories } = await useFetch(config.public.BACKEND_API_URL + `/productcategory/?parent_category=` + props.parent)
     if (props.parent === "") {
