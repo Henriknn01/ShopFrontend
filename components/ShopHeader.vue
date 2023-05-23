@@ -278,7 +278,7 @@
   }
 
   try {
-      const categories = convert(categoryData.value, featuredlist.value)
+      categories = convert(categoryData.value, featuredlist.value)
 
   } catch (e) {
   }
