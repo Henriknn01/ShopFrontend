@@ -4,11 +4,55 @@ const props = defineProps({
     queryset: String,
     limit: String,
 });
+const config = useRuntimeConfig();
+const route = useRoute();
+const { data: productList, pending, error, refresh } = await useFetch(config.public.BACKEND_API_URL + "/productlist/?format=json&id=1");
+const products = await productList.value[0]["products"]
 
-const {init, updateVisibleProducts, products, getProducts, scrollPrev, scrollNext, getLength, visibleProducts, pageIndex} = useCarousel(props.queryset, props.limit);
+let visibleProducts = []
+const pageIndex = 0
+
+
+const updateVisibleProducts = () => {
+    try {
+        visibleProducts.value = products.value.slice(pageIndex.value, pageIndex.value + ppp.value);
+    } catch (e) {
+        console.warn(e);
+    }
+};
+
+const init = async () => {
+    await products;
+    updateVisibleProducts()
+}
+
+function scrollNext() {
+
+    if (pageIndex.value + limit.value < getLength()) {
+        pageIndex.value += limit.value;
+        updateVisibleProducts();
+    }
+};
+
+function scrollPrev() {
+    if (pageIndex.value - limit.value >= 0) {
+        pageIndex.value -= limit.value;
+        updateVisibleProducts();
+    }
+};
+
+
 
 
 await init()
+
+</script>
+
+<script>
+export default {
+    name: 'Carousel',
+}
+
 
 
 </script>
@@ -16,9 +60,9 @@ await init()
 <template>
     <div class="py-6 sm:py-12 ">
         <h2 class="text-2xl font-bold text-gray-900 mb-12">{{ title }}</h2>
-        <div class="relative" v-if="1 > 0">
+        <div class="relative" v-if="products.length > 0">
             <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 items-start overflow-hidden" style="max-width: 100%;">
-                <a :href="'/product/' + product.id" v-for="product in visibleProducts">
+                <a :href="'/product/' + 1" v-for="product in visibleProducts">
                     <div class="overflow-hidden rounded-lg bg-gray-200">
                         <img :src=product.imagesrc :alt=product.imagealt class="h-60 w-full object-cover object-center hover:opacity-75">
                     </div>
@@ -43,15 +87,14 @@ await init()
                 </button>
             </div>
         </div>
+        <div v-else>
+            <p>No products available.</p>
+        </div>
     </div>
 </template>
 
-<script>
-export default {
-  name: 'Carousel',
-}
 
-</script>
 
 <style scoped>
+
 </style>
