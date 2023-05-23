@@ -1,15 +1,36 @@
 <script setup>
-import useCategoryCard from "../composables/useCategoryCard";
-
 const props = defineProps({
     title: String,
     parent: String,
 });
-
-
-let {data: data } = await useFetch(process.env.BACKEND_API_URL + `/productcategory/?parent_category=` + props.parent)
-
-const items = await useCategoryCard(data, props.parent)
+const items = ref([]);
+const config = useRuntimeConfig();
+try {
+    let {data: categories } = await useFetch(config.public.BACKEND_API_URL + `/productcategory/?parent_category=` + props.parent)
+    for (const category of await categories.value) {
+        if (category.image === null) {
+            items.value.push({
+                id: category.id,
+                name: category.name,
+                imagesrc: null,
+                imagealt: null,
+                desc: category.desc,
+                parent_category: category.parent_category,
+            });
+        } else {
+            items.value.push({
+                id: category.id,
+                name: category.name,
+                imagesrc: category["image"].src,
+                imagealt: category["image"].alt,
+                desc: category.desc,
+                parent_category: category.parent_category,
+            });
+        }
+    }
+} catch (e) {
+    console.warn(e)
+}
 
 </script>
 
