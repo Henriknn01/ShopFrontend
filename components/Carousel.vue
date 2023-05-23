@@ -8,7 +8,6 @@ const config = useRuntimeConfig();
 const route = useRoute();
 const { data: productList, pending, error, refresh } = await useFetch(config.public.BACKEND_API_URL + "/productlist/?format=json&id=1");
 const products = await productList.value[0]["products"]
-console.log(await products["image"])
 
 let visibleProducts = []
 const pageIndex = 0
@@ -65,7 +64,7 @@ export default {
             <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 items-start overflow-hidden" style="max-width: 100%;">
                 <a :href="'/product/' + 1" v-for="product in visibleProducts">
                     <div class="overflow-hidden rounded-lg bg-gray-200">
-                        <img :src=product["image"][0].imagesrc :alt=product["image"][0].imagealt class="h-60 w-full object-cover object-center hover:opacity-75">
+                        <img :src=product.imagesrc :alt=product.imagealt class="h-60 w-full object-cover object-center hover:opacity-75">
                     </div>
                     <h3 class="mt-4 text-sm text-gray-700">{{ product.name }}</h3>
                     <p class="mt-1 text-lg font-medium text-gray-900">{{ product.price }} NOK</p>
