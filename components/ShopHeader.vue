@@ -222,136 +222,66 @@
 
   const shoppingCart = useShoppingCartStore();
 
+  let categories = []
   let {data: categoryData } = await useFetch(config.public.BACKEND_API_URL + `/productcategory/`)
   let {data: featuredlist } = await useFetch(config.public.BACKEND_API_URL + `/productlist/?featured=true`)
-  interface Category {
-      id: number;
-      name: string;
-      parent_category: number | null;
-  }
 
-  interface Section {
-      id: string;
-      name: string;
-      items: {
-          name: string;
-          href: string;
-      }[];
-  }
+  function convert(input1, input2) {
+      let dict = {};
+      let topLevelCategories = [];
 
-  interface ConvertedCategory {
-      id: string;
-      name: string;
-      backednid: number;
-      featured: FeaturedList[];
-      sections: Section[];
-  }
-
-  type UnfilteredList = {
-      id: number;
-      name: string;
-      slug: string;
-      featured: boolean;
-      category: number[];
-      image: number[];
-      products: number[];
-      imagesrc: string | null;
-  };
-
-  type FeaturedList = {
-      name: string;
-      href: string;
-      imageSrc: string;
-      imageAlt: string;
-  };
-
-  async function useNavBar(categories: Category[], unfilteredFeatured: UnfilteredList[]): Promise<ConvertedCategory[]> {
-      const categoryMap = new Map<number, Category>();
-      const convertedCategories: ConvertedCategory[] = [];
-      const featured = ref([]);
-
-      // Create a mapping of categories
-      categories.forEach((category) => {
-          categoryMap.set(category.id, category);
-      });
-
-      function findSections(parentId: number): Section[] {
-          const sections: Section[] = [];
-          categories.forEach((category) => {
-              if (category.parent_category === parentId) {
-                  sections.push({
-                      id: category.name,
-                      name: category.name,
-                      items: findItems(category.id),
-                  });
-              }
-          });
-          return sections;
+      // Create a dictionary where each key is a category id and the value is an object representing the category
+      for (let category of input1) {
+          dict[category.id] = {
+              id: category.id,
+              name: category.name,
+              featured: [],
+              sections: [],
+          };
       }
 
-      function findItems(parentId: number): { name: string; href: string }[] {
-          const items: { name: string; href: string }[] = [];
-          categories.forEach((category) => {
-              if (category.parent_category === parentId) {
-                  items.push({
-                      name: category.name,
-                      href: `/categories/${category.id}`,
-                  });
-              }
-          });
-          return items;
-      }
-
-      async function getProductListPicture(imageID: number) {
-          try {
-              const response = await $fetch(config.public.BACKEND_API_URL + `/image/?format=json&id=` + imageID);
-              return response[0];
-          } catch (e) {
-              console.warn(e);
-          }
-      }
-
-      async function getProductListByCategory(products: UnfilteredList[], category: number): Promise<FeaturedList[]> {
-          const foundlist = products.filter((product) => product.category[0] === category);
-          if (foundlist.length == 0) {
-              return [];
-          }
-          const populatedList: FeaturedList[] = [];
-          for (const item of foundlist) {
-              const imageId = item.image[0]; // Assuming only one image ID per item, adjust accordingly if needed
-              const imageData = await getProductListPicture(imageId);
-              populatedList.push({
-                  name: item.name,
-                  href: "#",
-                  imageSrc: imageData.src,
-                  imageAlt: imageData.alt,
-              });
-          }
-          return populatedList;
-      }
-
-      for (const category of categories) {
-          if (category.parent_category === null) {
-              const featuredList = await getProductListByCategory(unfilteredFeatured, category.id);
-              featured.value.push(featuredList);
-
-              convertedCategories.push({
-                  id: category.name,
+      // Add child categories to their respective parent category
+      for (let category of input1) {
+          if (category.parent_category !== null) {
+              let parent = dict[category.parent_category];
+              parent.sections.push({
+                  id: category.name,  // Here, I'm assuming you want the category name as the section id
                   name: category.name,
-                  backednid: category.id,
-                  featured: featuredList,
-                  sections: findSections(category.id),
+                  items: [{ name: category.name, href: category.id.toString() }],
               });
           }
       }
 
-      return convertedCategories;
+      // Add products to their respective categories
+      for (let product of input2) {
+          for (let categoryId of product.category) {
+              let category = dict[categoryId];
+              if (category !== undefined && product.featured) {
+                  category.featured.push({
+                      name: product.name,
+                      href: product.id.toString(),
+                      imageSrc: product.image[0]?.src || "",
+                      imageAlt: product.image[0]?.alt || "",
+                  });
+              }
+          }
+      }
+
+      // Identify top level categories (those with no parent_category)
+      for (let category of input1) {
+          if (category.parent_category === null) {
+              topLevelCategories.push(dict[category.id]);
+          }
+      }
+
+      return topLevelCategories;
   }
 
-  const categories = await useNavBar(categoryData.value, featuredlist.value);
+  try {
+      const categories = convert(categoryData.value, featuredlist.value)
 
-  // TODO: make featuredCollections picture render same height
-  // TODO: make sure z index is the highest it can be, or slightly below ADA
+  } catch (e) {
+  }
 
   const navigation = {
       categories: categories,
