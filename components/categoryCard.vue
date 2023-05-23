@@ -12,26 +12,26 @@ try {
         parent = null
     }
     for (const category of await categories.value) {
-        if (category.parent_category === parent)  {
+        if (category.parent_category == parent)  {
             if (category.image === null) {
-            items.value.push({
-                id: category.id,
-                name: category.name,
-                imagesrc: null,
-                imagealt: null,
-                desc: category.desc,
-                parent_category: category.parent_category,
-            });
-        } else {
-            items.value.push({
-                id: category.id,
-                name: category.name,
-                imagesrc: category["image"].src,
-                imagealt: category["image"].alt,
-                desc: category.desc,
-                parent_category: category.parent_category,
-            });
-        }
+                items.value.push({
+                    id: category.id,
+                    name: category.name,
+                    imagesrc: null,
+                    imagealt: null,
+                    desc: category.desc,
+                    parent_category: category.parent_category,
+                });
+            } else {
+                items.value.push({
+                    id: category.id,
+                    name: category.name,
+                    imagesrc: category["image"].src,
+                    imagealt: category["image"].alt,
+                    desc: category.desc,
+                    parent_category: category.parent_category,
+                });
+            }
         }
     }
 } catch (e) {
