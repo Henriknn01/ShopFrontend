@@ -8,7 +8,6 @@ const { data: product, pending, error, refresh } = await useFetch(config.public.
 const cart = useShoppingCartStore()
 const { getAverage } = useReviews();
 
-const avg = await getAverage(route.params.id);
 function addToCart(item) {
     let i = {
         id: item.id,
@@ -28,9 +27,12 @@ function setSelectedImage(imgSrc, imgAlt) {
     selectedImage.value = {src: imgSrc, alt: imgAlt};
 }
 const p = await product;
-
-if (p.value.image.length > 0) {
-    setSelectedImage(p.value.image[0].src, p.value.image[0].alt);
+const avg = ref(0);
+if (p.value) {
+    avg.value = await getAverage(route.params.id);
+    if (p.value.image.length > 0) {
+        setSelectedImage(p.value.image[0].src, p.value.image[0].alt);
+    }
 }
 </script>
 
@@ -39,8 +41,8 @@ if (p.value.image.length > 0) {
         <div v-if="pending">
             <h1>Loading...</h1>
         </div>
-        <div v-else-if="error">
-            <h1>{{error}}</h1>
+        <div v-else-if="error" class="my-48 text-center">
+            <h1 class="text-3xl font-bold">{{error.statusCode}} {{error.statusMessage}}</h1>
         </div>
         <div v-else>
             <div class="grid grid-cols-12 auto-rows-auto gap-12">
