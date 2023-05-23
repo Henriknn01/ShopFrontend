@@ -247,7 +247,7 @@
               parent.sections.push({
                   id: category.name,  // Here, I'm assuming you want the category name as the section id
                   name: category.name,
-                  items: [{ name: category.name, href: category.id.toString() }],
+                  items: [{ name: category.name, href: "/categories/" + category.id.toString() }],
               });
           }
       }
@@ -259,7 +259,7 @@
               if (category !== undefined && product.featured) {
                   category.featured.push({
                       name: product.name,
-                      href: product.id.toString(),
+                      href: "/productlist/" + product.id.toString(),
                       imageSrc: product.image[0]?.src || "",
                       imageAlt: product.image[0]?.alt || "",
                   });
