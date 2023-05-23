@@ -35,7 +35,7 @@ export default async function useBlog(): Promise<{
     async function getProductListPicture(imageID: number) {
         try {
             const response = await $fetch(
-                `http://127.0.0.1:8000/Image/?format=json&id=` + imageID
+                `http://127.0.0.1:8000/image/?format=json&id=` + imageID
             );
             return response[0].src;
         } catch (e) {
@@ -46,7 +46,7 @@ export default async function useBlog(): Promise<{
     async function getAuthorName(imageID: number) {
         try {
             const response = await $fetch(
-                `http://127.0.0.1:8000/Image/?format=json&id=` + imageID
+                `http://127.0.0.1:8000/image/?format=json&id=` + imageID
             );
             return response[0].src;
         } catch (e) {
