@@ -103,7 +103,7 @@ export default NuxtAuthHandler({
                         });
                     };
                     const decodedAccessJWT = await decodeToken(userTokens.access);
-                    const decodedRefreshJWT = await decodeToken(userTokens.access);
+                    const decodedRefreshJWT = await decodeToken(userTokens.refresh);
 
                     const user = {
                         id: userDetails.id,
