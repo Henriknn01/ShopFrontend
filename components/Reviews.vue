@@ -24,7 +24,7 @@ function commentReview() {
             <div v-if="reviewed === true" class="bg-green-500 w-full p-6 text-white rounded">
                 <h3>Thank you for your review!</h3>
             </div>
-            <h1 class="text-2xl font-bold" @click="signOut()">Most recent reviews</h1>
+            <h1 class="text-2xl font-bold">Most recent reviews</h1>
             <div v-for="review in reviews" v-if="reviews.length > 0">
                 <div class="my-2 flex rounded-2xl shadow-lg p-4 bg-gray-50">
                     <div class="flex-none text-center m-2 px-4">
