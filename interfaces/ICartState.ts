@@ -10,5 +10,5 @@ export interface ICartState {
     tax: number;
     taxRate: number;
     total: number;
-    stripeSessionID: string,
+    stripeSessionID: any,
 }

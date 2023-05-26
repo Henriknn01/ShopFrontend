@@ -1,6 +1,9 @@
 <script setup>
 import { CheckBadgeIcon } from "@heroicons/vue/24/outline";
-
+const {data:authData, status} = useAuth();
+const shoppingCart = useShoppingCartStore();
+const config = useRuntimeConfig();
+shoppingCart.purchaseCompleted(authData.value);
 </script>
 <template>
   <div class="mx-auto max-w-7xl my-28 px-4 sm:px-6 lg:px-8">

@@ -1,4 +1,3 @@
-import {loadStripe} from "@stripe/stripe-js"
 import {defineStore} from "pinia";
 import {ICartItem} from "../interfaces/ICartItem";
 import {ICartState} from "../interfaces/ICartState";
@@ -22,7 +21,6 @@ export const useShoppingCartStore = defineStore('ShoppingCart',{
     },
     actions: {
         addItem(item: ICartItem) {
-            console.log(item);
             const duplicate = this.cart.find(i => item.id == i.id);
             if (duplicate) {
                 duplicate.quantity += 1;
@@ -44,10 +42,6 @@ export const useShoppingCartStore = defineStore('ShoppingCart',{
             } else {
                 console.log('item not found');
             }
-        },
-
-        clearCart() {
-            this.cart = [];
         },
 
         increaseItemQuantity(item: ICartItem) {
@@ -120,7 +114,7 @@ export const useShoppingCartStore = defineStore('ShoppingCart',{
                         currency: 'nok',
                         product_data: {
                             name: item.name,
-                            images: [item.img],
+                            images: (item.img.length>0 ? [item.img] : []),
                         },
                         unit_amount: item.price*100,
                     },
@@ -143,15 +137,112 @@ export const useShoppingCartStore = defineStore('ShoppingCart',{
             );
 
             const session =  await response;
-            console.log(session)
+
+            this.stripeSessionID = String(session.id);
             window.location.replace(session.url);
         },
 
-        /*
-        async expirePaymentSession() {
-            const session = await stripe.checkout.sessions.expire();
+        async expireStripeSession() {
+            const headers = {
+                "Content-Type": 'multipart/form-data',
+            };
+            const response = await $fetch(
+                "/api/checkout/expire",
+                {
+                    method: "POST",
+                    headers: headers,
+                    body: { stripeSessionID: this.stripeSessionID},
+                }
+            );
+            return response;
+        },
+
+        async retrieveStripeSession() {
+            const headers = {
+                "Content-Type": 'application/json',
+            };
+            const config = useRuntimeConfig();
+            const response = await fetch(
+                config.public.FRONTEND_URL + "/api/checkout/retrieve/" + this.stripeSessionID,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            return await response.json();
+        },
+
+        clearCart(){
+            this.cart = [];
+            this.stripeSessionID = "";
+            this.cartCount = 0;
+            this.calculateTotal();
+        },
+
+        async purchaseCompleted(userAuth:any) {
+            try {
+                const session = await this.retrieveStripeSession();
+                const orderDetails = await fetch("http://127.0.0.1:8000/order/", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        stripe_id: session.id,
+                        user: userAuth.user.id,
+                        subtotal: session.amount_subtotal,
+                        total: session.amount_total,
+                        transaction_status: session.status,
+                        payment_status: session.payment_status,
+                        shipping_cost: session.shipping_cost.amount_total,
+                        shipping_full_name: session.shipping_details.name,
+                        shipping_address: session.shipping_details.address.line1,
+                        shipping_city: session.shipping_details.address.city,
+                        shipping_country: session.shipping_details.address.country,
+                        shipping_postal_code: session.shipping_details.address.postal_code,
+                        shipping_phone_number: session.customer_details.phone,
+                    }),
+                    headers: {
+                        "Content-Type": 'application/json',
+                        "Authorization": 'Bearer ' + userAuth.user.accessToken,
+                    },
+                });
+                const response = await orderDetails;
+                if (response.status == 201) {
+                    const responseData = await response.json();
+                    for (const i of session.item_list) {
+                        const found = this.cart.find(f => f.name == i.description && f.price == (i.price.unit_amount / 100));
+                        if (found) {
+                            const orderItem = await fetch("http://127.0.0.1:8000/order-item/", {
+                                method: "POST",
+                                body: JSON.stringify({
+                                    order: responseData.id,
+                                    product: found.id,
+                                    price: i.price.unit_amount/100,
+                                    total: i.amount_total/100,
+                                    quantity: i.quantity,
+                                }),
+                                headers: {
+                                    "Content-Type": 'application/json',
+                                    "Authorization": 'Bearer ' + userAuth.user.accessToken,
+                                },
+                            });
+                            if (orderItem.status != 201) {
+                                console.warn('Error: ' + orderItem.statusText);
+                            }
+                        }
+                    }
+                } else {
+                    throw createError({
+                        statusCode: 500,
+                        statusMessage: 'Error occurred creating order',
+                    });
+                }
+            } catch (e) {
+                console.warn(e);
+            } finally {
+                this.clearCart();
+            }
         }
-        */
     },
     persist: true,
-})
+});
