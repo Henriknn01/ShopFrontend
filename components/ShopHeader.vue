@@ -226,60 +226,56 @@
   let {data: categoryData } = await useFetch(config.public.BACKEND_API_URL + `/productcategory/`)
   let {data: featuredlist } = await useFetch(config.public.BACKEND_API_URL + `/productlist/?featured=true`)
 
-  function convert(input1, input2) {
-      let dict = {};
-      let topLevelCategories = [];
-
-      // Create a dictionary where each key is a category id and the value is an object representing the category
-      for (let category of input1) {
-          dict[category.id] = {
-              id: category.id,
-              name: category.name,
-              featured: [],
-              sections: [],
-          };
-      }
-
-      // Add child categories to their respective parent category
-      for (let category of input1) {
+  function transformData(categories, products) {
+      const categoryMap = new Map();
+      categories.forEach(category => {
           if (category.parent_category !== null) {
-              let parent = dict[category.parent_category];
-              parent.sections.push({
-                  id: category.name,  // Here, I'm assuming you want the category name as the section id
+              if (!categoryMap.has(category.parent_category)) {
+                  categoryMap.set(category.parent_category, []);
+              }
+              categoryMap.get(category.parent_category).push({
+                  id: category.id,
                   name: category.name,
-                  items: [{ name: category.name, href: "/categories/" + category.id.toString() }],
+                  href: "/categories/" + category.id
               });
           }
-      }
+      });
 
-      // Add products to their respective categories
-      for (let product of input2) {
-          for (let categoryId of product.category) {
-              let category = dict[categoryId];
-              if (category !== undefined && product.featured) {
-                  category.featured.push({
-                      name: product.name,
-                      href: "/productlist/" + product.id.toString(),
-                      imageSrc: product.image[0]?.src || "",
-                      imageAlt: product.image[0]?.alt || "",
-                  });
+      const productMap = new Map();
+      products.forEach(product => {
+          product.category.forEach(catId => {
+              if (!productMap.has(catId)) {
+                  productMap.set(catId, []);
               }
-          }
-      }
+              productMap.get(catId).push({
+                  name: product.name,
+                  href: '/productlist/' + product.id,
+                  imageSrc: product.image[0]?.src,
+                  imageAlt: product.image[0]?.alt
+              });
+          });
+      });
 
-      // Identify top level categories (those with no parent_category)
-      for (let category of input1) {
-          if (category.parent_category === null) {
-              topLevelCategories.push(dict[category.id]);
-          }
-      }
-
-      return topLevelCategories;
+      const output = categories.filter(category => category.parent_category === null).map(category => {
+          const sections = categoryMap.get(category.id) || [];
+          return {
+              id: category.id,
+              name: category.name,
+              featured: productMap.get(category.id) || [],
+              sections: sections.map(section => {
+                  return {
+                      id: section.id,
+                      name: section.name,
+                      items: categoryMap.get(section.id) || []
+                  };
+              })
+          };
+      });
+      return output;
   }
 
   try {
-      categories = convert(categoryData.value, featuredlist.value)
-
+      categories = transformData(categoryData.value, featuredlist.value)
   } catch (e) {
   }
 
