@@ -35,5 +35,16 @@ export default defineNuxtConfig({
     },
     imports: {
         dirs: ['stores', 'interfaces']
-    }
+    },
+    app: {
+        head: {
+            htmlAttrs: {
+                lang: 'en',
+            },
+            title: 'PetPlus',
+            charset: 'utf-8',
+            meta: [],
+            link: [],
+        }
+    },
 })
