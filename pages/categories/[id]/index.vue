@@ -12,7 +12,7 @@ const {data:products, pending, error, refresh} = await useFetch(config.public.BA
         <category-card title="Categories" :parent="id"/>
         <div>
             <h2 class="font-bold text-3xl mb-8">Products</h2>
-            <div class="grid grid-cols-6 gap-4 auto-rows-auto">
+            <div class="grid md:grid-cols-6 grid-cols-2 gap-4 auto-rows-auto">
                 <a :href="'/product/' + product.id" v-for="product in products">
                     <div class="overflow-hidden rounded-lg bg-gray-200">
                         <img :src="(product.image.length>0 ? product.image[0].src : '')" :alt="(product.image.length>0 ? product.image[0].alt : '')" class="w-full h-44 object-cover object-center hover:opacity-75">
