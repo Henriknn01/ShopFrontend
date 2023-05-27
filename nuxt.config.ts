@@ -15,9 +15,11 @@ export default defineNuxtConfig({
     auth: {
         // The module is enabled. Change this to disable the module
         isEnabled: true,
+
         // The origin is set to the development origin. Change this when deploying to production by setting `origin` in this config before build-time or by exporting `AUTH_ORIGIN` by running `export AUTH_ORIGIN=...`
         origin: process.env.FRONTEND_URL,
         enableGlobalAppMiddleware: true,
+        addDefaultCallbackUrl: true,
     },
     runtimeConfig: {
         NUXT_SECRET: process.env.NUXT_SECRET,

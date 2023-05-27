@@ -15,6 +15,9 @@
       <Carousel title="Everything you need for your cat" queryset="3" limit="4"/>
   </div>
 </template>
+<script setup>
+definePageMeta({ auth: false });
+</script>
 <script>
 import ShopFooter from "../components/ShopFooter.vue";
 import Carousel from "../components/Carousel.vue";
