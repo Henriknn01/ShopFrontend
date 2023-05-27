@@ -1,5 +1,6 @@
 
 <script setup>
+definePageMeta({ auth: false });
 const {init,getBlogPost} = await useBlog()
 await init()
 const route = useRoute()

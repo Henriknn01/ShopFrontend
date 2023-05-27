@@ -1,5 +1,6 @@
 
 <script setup>
+definePageMeta({ auth: false });
 const {init, getTotalLength, pageSize, getPageIndex, blogPosts, nextPage, prevPage, goToPage, visiblePosts, getPageNumberRender} = await useBlog()
 await init()
 let totalLength = getTotalLength()

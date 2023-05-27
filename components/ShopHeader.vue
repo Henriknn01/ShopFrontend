@@ -77,7 +77,7 @@
                   <a href="/account/login" class="-m-2 block p-2 font-medium text-gray-900">Sign in</a>
                 </div>
                 <div class="flow-root">
-                  <a href="#" class="-m-2 block p-2 font-medium text-gray-900">Create account</a>
+                  <a href="/account/create" class="-m-2 block p-2 font-medium text-gray-900">Create account</a>
                 </div>
               </div>
                 <div class="space-y-6 border-t border-gray-200 py-6 px-4" v-else-if="status === 'authenticated'">
@@ -162,9 +162,9 @@
 
             <div class="ml-auto flex items-center">
               <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6" v-if="status === 'unauthenticated'">
-                <a href="/account/login)" class="text-sm font-medium text-gray-700 hover:text-gray-800">Sign in</a>
+                <a href="/account/login" class="text-sm font-medium text-gray-700 hover:text-gray-800">Sign in</a>
                 <span class="h-6 w-px bg-gray-200" aria-hidden="true" />
-                <a href="#" class="text-sm font-medium text-gray-700 hover:text-gray-800">Create account</a>
+                <a href="/account/create" class="text-sm font-medium text-gray-700 hover:text-gray-800">Create account</a>
               </div>
                 <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6" v-else-if="status === 'authenticated'">
                     <a href="#" class="text-sm font-medium text-gray-700 hover:text-gray-800" @click="signOut({ callbackUrl: '/account/login' })">Sign out</a>

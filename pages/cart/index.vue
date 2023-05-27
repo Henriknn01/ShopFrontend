@@ -1,4 +1,5 @@
 <script setup>
+definePageMeta({ auth: false });
 const shoppingCart = useShoppingCartStore();
 import { TrashIcon } from "@heroicons/vue/24/outline";
 </script>

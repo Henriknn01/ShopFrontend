@@ -3,6 +3,7 @@ import { StarIcon } from "@heroicons/vue/24/solid";
 import Reviews from "../../components/reviews.vue";
 const route = useRoute();
 const config = useRuntimeConfig();
+definePageMeta({ auth: false });
 const { data: product, pending, error, refresh } = await useFetch(config.public.BACKEND_API_URL + "/product/" + route.params.id+"/");
 
 const cart = useShoppingCartStore()
