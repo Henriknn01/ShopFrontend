@@ -13,7 +13,9 @@ const { signIn } = useAuth()
     <div class="col-span-3 md:col-span-1 p-10 md:p-20">
         <div class="grid grid-cols-4 auto-rows-max gap-2 my-16">
             <div class="col-span-full row-span-1">
-                <img class="h-16" src="https://norheimweb.ams3.cdn.digitaloceanspaces.com/assets/wave-logo-shape.png">
+                <a href="/">
+                    <img class="h-16" src="https://norheimweb.ams3.cdn.digitaloceanspaces.com/assets/wave-logo-shape.png" alt="website logo">
+                </a>
             </div>
             <div class="col-span-full row-span-1">
                 <h2 class="mt-6 text-3xl font-bold tracking-tight text-gray-900">Sign in to your account</h2>

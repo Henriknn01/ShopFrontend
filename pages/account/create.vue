@@ -16,7 +16,9 @@ const { createUser, errors } = useAuthExtention();
     <div class="col-span-3 md:col-span-1 px-10 md:px-20">
         <div class="grid grid-cols-4 auto-rows-max gap-2 my-16">
             <div class="col-span-full row-span-1">
-                <img class="h-16" src="https://norheimweb.ams3.cdn.digitaloceanspaces.com/assets/wave-logo-shape.png">
+                <a href="/">
+                    <img class="h-16" src="https://norheimweb.ams3.cdn.digitaloceanspaces.com/assets/wave-logo-shape.png" alt="website logo">
+                </a>
             </div>
 
             <div class="col-span-full row-span-1">
@@ -55,7 +57,7 @@ const { createUser, errors } = useAuthExtention();
                         <input id="re-password" v-model="form.re_password" name="confirm-password" type="password" autocomplete="current-password" required class="relative block w-full rounded border-0 p-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Confirm password">
                     </div>
                     <div class="flex items-center">
-                        <input id="tos" name="tos" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                        <input id="tos" name="tos" required type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
                         <label for="tos" class="ml-2 block text-sm text-gray-900">I agree to the terms of service</label>
                     </div>
 
