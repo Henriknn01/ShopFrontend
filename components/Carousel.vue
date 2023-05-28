@@ -75,7 +75,7 @@ export default {
             </div>
 
             <div class="absolute right-0 top-0 bottom-0 flex items-center">
-                <button class="w-12 h-12 bg-transparent" @click="scrollNext()" >
+                <button class="w-12 h-12 bg-transparent" @click="scrollNext()" aria-label="Scroll Next Page on carousel">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 m-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                     </svg>
@@ -83,7 +83,7 @@ export default {
             </div>
 
             <div class="absolute left-0 top-0 bottom-0 flex items-center">
-                <button class="w-12 h-12 bg-transparent" @click="scrollPrev">
+                <button class="w-12 h-12 bg-transparent" @click="scrollPrev" aria-label="Scroll previous Page on carousel">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 m-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                     </svg>

@@ -79,7 +79,7 @@ if (p.value) {
 
             <Reviews :product-id="product.id.toString()"/>
 
-            <Carousel title="More products like this..." />
+            <Carousel title="More products like this..." queryset="1"/>
             <Carousel title="Recently viewed" />
             <div class="mx-auto max-w-2xl lg:mx-0">
                 <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">From the blog</h2>
