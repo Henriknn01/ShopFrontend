@@ -13,7 +13,7 @@
           <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase">Resources</h2>
           <ul class="text-gray-600 ">
             <li class="mb-4">
-              <a href="/about" class="hover:underline">about us</a>
+              <a href="/about" class="hover:underline">About us</a>
             </li>
             <li>
               <a href="/qanda" class="hover:underline">Q&A</a>
