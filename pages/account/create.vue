@@ -29,8 +29,8 @@ const { createUser, errors } = useAuthExtention();
                     <a href="/account/login" class="font-medium text-indigo-600 hover:text-indigo-500">Login to an existing account</a>
                 </p>
             </div>
-            <div class="col-span-full row-span-1 bg-red-600 p-2 rounded" v-if="errors">
-                <h1 class="w-full text-white" v-for="error in errors">- {{error[0]}}</h1>
+            <div class="col-span-full row-span-1" v-if="errors">
+                <h3 class="text-red-500 font-semibold" v-for="error in errors">{{error[0]}} *</h3>
             </div>
             <div class="col-span-full row-span-1">
                 <h3 v-if="urlError==='CredentialsSignin'" class="text-red-500 font-semibold">Wrong username or password *</h3>
