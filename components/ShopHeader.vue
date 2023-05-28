@@ -282,8 +282,8 @@
   const navigation = {
       categories: categories,
     pages: [
-      { name: 'Q&A', href: '/QandA' },
-      { name: 'Blog', href: '/Blog' },
+      { name: 'Q&A', href: '/qanda' },
+      { name: 'Blog', href: '/blog' },
       { name: 'About us', href: '/about' },
     ],
   }
