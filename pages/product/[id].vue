@@ -5,9 +5,9 @@ const route = useRoute();
 const config = useRuntimeConfig();
 definePageMeta({ auth: false });
 const { data: product, pending, error, refresh } = await useFetch(config.public.BACKEND_API_URL + "/product/" + route.params.id+"/");
-
 const cart = useShoppingCartStore()
 const { getAverage } = useReviews();
+
 
 function addToCart(item) {
     let i = {
@@ -35,6 +35,10 @@ if (p.value) {
         setSelectedImage(p.value.image[0].src, p.value.image[0].alt);
     }
 }
+
+
+
+
 </script>
 
 <template>
@@ -82,62 +86,35 @@ if (p.value) {
                 <p class="mt-2 text-lg leading-8 text-gray-600">Learn more about the latest news from Wave</p>
             </div>
             <div class="mx-auto my-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-                <article class="flex max-w-xl flex-col items-start justify-between">
-                    <div class="flex items-center gap-x-4 text-xs">
-                        <time datetime="2020-03-16" class="text-gray-500">Mar 16, 2020</time>
-                        <a href="#" class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">Marketing</a>
-                    </div>
-                    <div class="group relative">
-                        <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                            <a href="#">
-                                <span class="absolute inset-0"></span>
-                                Boost your conversion rate
-                            </a>
-                        </h3>
-                        <p class="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.</p>
-                    </div>
-                </article>
-                <article class="flex max-w-xl flex-col items-start justify-between">
-                    <div class="flex items-center gap-x-4 text-xs">
-                        <time datetime="2020-03-16" class="text-gray-500">Mar 16, 2020</time>
-                        <a href="#" class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">Marketing</a>
-                    </div>
-                    <div class="group relative">
-                        <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                            <a href="#">
-                                <span class="absolute inset-0"></span>
-                                Boost your conversion rate
-                            </a>
-                        </h3>
-                        <p class="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.</p>
-                    </div>
-                </article>
-                <article class="flex max-w-xl flex-col items-start justify-between">
-                    <div class="flex items-center gap-x-4 text-xs">
-                        <time datetime="2020-03-16" class="text-gray-500">Mar 16, 2020</time>
-                        <a href="#" class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">Marketing</a>
-                    </div>
-                    <div class="group relative">
-                        <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                            <a href="#">
-                                <span class="absolute inset-0"></span>
-                                Boost your conversion rate
-                            </a>
-                        </h3>
-                        <p class="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.</p>
-                    </div>
-                </article>
-
-                <!-- More posts... -->
+              <article v-for="(item, index) in articles" :key="index" class="flex max-w-xl flex-col items-start justify-between">
+                <div class="flex items-center gap-x-4 text-xs">
+                  <time :datetime="item.date" class="text-gray-500">{{ item.date }}</time>
+                </div>
+                <div class="group relative">
+                  <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+                    <a :href="/blog/ + item.id">
+                      <span class="absolute inset-0"></span>
+                      {{ item.title }}
+                    </a>
+                  </h3>
+                  <p class="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">{{ item.content }}</p>
+                </div>
+              </article>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+const {init, visiblePosts} = await useBlog()
+await init()
 export default {
-    name: "index",
-}
+  data() {
+    return {
+      articles: visiblePosts,
+    };
+  },
+};
 </script>
 
 <style scoped>
