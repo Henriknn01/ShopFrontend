@@ -43,7 +43,14 @@ export default defineNuxtConfig({
             },
             title: 'PetPlus',
             charset: 'utf-8',
-            meta: [],
+            meta: [
+                { charset: 'utf-8' },
+                { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+                {
+                    hid: 'description',
+                    name: 'description',
+                    content: 'Shop the best selection of pet supplies at our online pet store. Find everything you need for your furry friends, from food and toys to grooming and healthcare products. Enjoy fast shipping and excellent customer service.'
+                }],
             link: [],
         }
     },
