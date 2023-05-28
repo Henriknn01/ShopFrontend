@@ -43,7 +43,7 @@ export default defineNuxtConfig({
             htmlAttrs: {
                 lang: 'en',
             },
-            title: 'PetPlus',
+            title: 'Wave PetPlus',
             charset: 'utf-8',
             meta: [
                 { charset: 'utf-8' },
