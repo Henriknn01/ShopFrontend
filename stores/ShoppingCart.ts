@@ -103,7 +103,7 @@ export const useShoppingCartStore = defineStore('ShoppingCart',{
 
         async makePayment() {
             const {status} = useAuth();
-            if (status == 'authenticated') {
+            if (status.value == 'authenticated') {
                 const headers = {
                     "Content-Type": 'multipart/form-data',
                 };
