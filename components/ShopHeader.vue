@@ -168,7 +168,9 @@
               </div>
                 <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6" v-else-if="status === 'authenticated'">
                     <a href="#" class="text-sm font-medium text-gray-700 hover:text-gray-800" @click="signOut({ callbackUrl: '/account/login' })">Sign out</a>
-                    <img class="rounded-full h-7 w-7" :src="'https://api.dicebear.com/6.x/initials/svg?scale=80&seed='+data.user.email" alt="profile picture header">
+                    <a href="/account/">
+                      <img class="rounded-full h-7 w-7" :src="'https://api.dicebear.com/6.x/initials/svg?scale=80&seed='+data.user.email" alt="profile picture header">
+                    </a>
                 </div>
 
               <!-- Search -->
