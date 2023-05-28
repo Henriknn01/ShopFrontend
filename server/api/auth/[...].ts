@@ -58,7 +58,7 @@ export default NuxtAuthHandler({
     secret:  process.env.NUXT_SECRET,
     pages: {
         // Change the default behavior to use `/login` as the path for the sign-in page
-        signIn: '/login'
+        signIn: '/account/login'
     },
     providers: [
         // @ts-ignore Import is exported on .default during SSR, so we need to call it this way. May be fixed via Vite at some point
@@ -130,7 +130,6 @@ export default NuxtAuthHandler({
     callbacks: {
         async jwt({ token, user, account, session }) {
             if (account && user) {
-                console.warn("JWT callback", { token, user, account });
                 return {
                     ...token,
                     ...user,

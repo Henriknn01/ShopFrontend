@@ -4,6 +4,7 @@ const config = useRuntimeConfig();
 const {data: productList, pending, error, refresh} = useFetch(
     config.public.BACKEND_API_URL + '/productlist/' + route.params.id + '/'
 );
+definePageMeta({ auth: false });
 </script>
 
 <template>

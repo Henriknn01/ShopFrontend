@@ -102,44 +102,49 @@ export const useShoppingCartStore = defineStore('ShoppingCart',{
         },
 
         async makePayment() {
-            //const stripe = await loadStripe(process.env.STRIPE_PUBLIC_KEY);
-            // const body = this.cart;
-            const headers = {
-                "Content-Type": 'multipart/form-data',
-            };
+            const {status} = useAuth();
+            if (status == 'authenticated') {
+                const headers = {
+                    "Content-Type": 'multipart/form-data',
+                };
 
-            let mappedArr = this.cart.map(item=> {
-                return <ILineItem> {
-                    price_data: {
-                        currency: 'nok',
-                        product_data: {
-                            name: item.name,
-                            images: (item.img.length>0 ? [item.img] : []),
+                let mappedArr = this.cart.map(item=> {
+                    return <ILineItem> {
+                        price_data: {
+                            currency: 'nok',
+                            product_data: {
+                                name: item.name,
+                                images: (item.img.length>0 ? [item.img] : []),
+                            },
+                            unit_amount: item.price*100,
                         },
-                        unit_amount: item.price*100,
-                    },
-                    quantity: item.quantity,
-                }
-            });
+                        quantity: item.quantity,
+                    }
+                });
 
-            let tmpArr = [];
-            for (let i of mappedArr) {
-                tmpArr.push(i)
+                let tmpArr = [];
+                for (let i of mappedArr) {
+                    tmpArr.push(i)
+                }
+
+                const response = await $fetch(
+                    "/api/checkout",
+                    {
+                        method: "POST",
+                        headers: headers,
+                        body: { line_items: mappedArr},
+                    }
+                );
+
+                const session =  await response;
+
+                this.stripeSessionID = String(session.id);
+                window.location.replace(session.url);
+            } else {
+                const config = useRuntimeConfig()
+                window.location.replace(config.public.FRONTEND_URL + '/account/login');
             }
 
-            const response = await $fetch(
-                "/api/checkout",
-                {
-                    method: "POST",
-                    headers: headers,
-                    body: { line_items: mappedArr},
-                }
-            );
-
-            const session =  await response;
-
-            this.stripeSessionID = String(session.id);
-            window.location.replace(session.url);
         },
 
         async expireStripeSession() {

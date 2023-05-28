@@ -22,6 +22,9 @@
     </div>
   </div>
 </template>
+<script setup>
+definePageMeta({ auth: false });
+</script>
 
 <script>
 export default {

@@ -4,6 +4,8 @@ const id = route.params.id
 
 const config = useRuntimeConfig();
 
+definePageMeta({ auth: false });
+
 const {data:products, pending, error, refresh} = await useFetch(config.public.BACKEND_API_URL + '/product/?format=json&category=' + id);
 </script>
 
