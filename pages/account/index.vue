@@ -17,7 +17,7 @@ const {data: orders, pending, error} = useAuthFetch(
         <hr>
       </div>
       <div class="grid grid-cols-4 gap-8 auto-rows-auto">
-          <div class="md:col-span-1 col-span-full bg-gray-50 rounded p-2 shadow-xl">
+          <div class="md:col-span-1 col-span-full bg-gray-50 rounded p-2 shadow-xl h-fit">
               <div class="bg-gray-200 rounded p-2.5 mb-2 hover:bg-gray-100 cursor-pointer">
                   <h3 class="text-md font-semibold inline-flex gap-2"><TruckIcon class="h-6 w-6 text-gray-500" />Orders</h3>
               </div>
