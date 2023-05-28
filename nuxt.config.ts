@@ -53,7 +53,7 @@ export default defineNuxtConfig({
                     name: 'description',
                     content: 'Shop the best selection of pet supplies at our online pet store. Find everything you need for your furry friends, from food and toys to grooming and healthcare products. Enjoy fast shipping and excellent customer service.'
                 }],
-            link: [],
+            link: [{ rel: 'icon', type: 'image/png', href: 'https://norheimweb.ams3.cdn.digitaloceanspaces.com/assets/wave-logo-shape.png' }],
         }
     },
 })
