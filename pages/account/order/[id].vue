@@ -95,7 +95,7 @@ const {data: orderItems, pending: pendingItems, error: errorItems} = useAuthFetc
                       <div class="flex inline-flex items-center w-full">
                           <div class="flex-none h-20 w-20">
                               <a :href="item.link">
-                                  <img class="rounded h-full w-full object-cover" :src="item.product.image[0].src" :alt="item.product.image[0].alt">
+                                  <img class="rounded h-full w-full object-cover" :src="(item.product.image.length>0 ? item.product.image[0].src : '')" :alt="(item.product.image.length>0 ? item.product.image[0].alt : 'no image')">
                               </a>
                           </div>
                           <div class="flex-1">
