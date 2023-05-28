@@ -22,7 +22,7 @@ export default async function useBlog(): Promise<{
     getPageIndex: () => number
 }> {
     let pageIndex = 0;
-    const pageSize = 2; // Number of blog posts per page
+    const pageSize = 3; // Number of blog posts per page
     let blogPosts:Ref<any[]> = ref([]);
     let visiblePosts:Ref<any[]> = ref([]);
     let totalLength:number = 0;
