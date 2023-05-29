@@ -1,5 +1,5 @@
 <script setup>
-import { TruckIcon, Cog6ToothIcon, ArrowRightOnRectangleIcon } from "@heroicons/vue/24/outline";
+import { TruckIcon, Cog6ToothIcon, ArrowRightOnRectangleIcon, CodeBracketIcon } from "@heroicons/vue/24/outline";
 
 const {data, status, signOut} = useAuth();
 const config = useRuntimeConfig();
@@ -21,6 +21,11 @@ const {data: orders, pending, error} = useAuthFetch(
               <div class="bg-gray-200 rounded p-2.5 mb-2 hover:bg-gray-100 cursor-pointer">
                   <h3 class="text-md font-semibold inline-flex gap-2"><TruckIcon class="h-6 w-6 text-gray-500" />Orders</h3>
               </div>
+              <a href="/admin">
+                  <div class="rounded p-2.5 mb-2 hover:bg-gray-100 cursor-pointer" v-if="data.user.role == 'admin' || data.user.role == 'sales'">
+                      <h3 class="text-md inline-flex gap-2"><CodeBracketIcon class="h-6 w-6 text-gray-500" />Admin</h3>
+                  </div>
+              </a>
               <div class="rounded p-2.5 mb-2 hover:bg-gray-100 cursor-pointer">
                   <h3 class="text-md inline-flex gap-2"><Cog6ToothIcon class="h-6 w-6 text-gray-500" />Settings</h3>
               </div>
