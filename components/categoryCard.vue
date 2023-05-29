@@ -46,18 +46,18 @@ try {
             <h2 class="text-3xl font-bold text-gray-900">{{ title }}</h2>
 
             <div class="mt-0 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0">
-                <div v-for="item in items" :key="item.id" class="group">
-                    <div class="mt-6 h-80 w-full overflow-hidden rounded-lg bg-white group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64 lg:aspect-w-1 lg:aspect-h-1">
-                        <img :src="item.imagesrc" :alt="item.imagealt" class="h-full w-full object-cover object-center"/>
-                    </div>
-                    <h3 class="mt-2 text-sm text-gray-500">
-                        <a :href="'/categories/' + item.id">
-                            <span class="absolute inset-0"></span>
+
+                <a v-for="item in items" :key="item.id" :href="'/categories/' + item.id">
+                    <div class="group z-0">
+                        <div class="mt-6 h-80 w-full overflow-hidden rounded-lg bg-white group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64 lg:aspect-w-1 lg:aspect-h-1">
+                            <img :src="item.imagesrc" :alt="item.imagealt" class="h-full w-full object-cover object-center"/>
+                        </div>
+                        <h3 class="mt-2 text-sm text-gray-500">
                             {{ item.name }}
-                        </a>
-                    </h3>
-                    <p class="text-base font-semibold text-gray-900">{{ item.desc }}</p>
-                </div>
+                        </h3>
+                        <p class="text-base font-semibold text-gray-900">{{ item.desc }}</p>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
