@@ -10,9 +10,9 @@
       </div>
     </div>
       <category-card title="Categories" parent=""/>
-      <Carousel title="Featured products" queryset="5" limit="4"/>
-      <Carousel title="Everything you need for your dog" queryset="3" limit="4"/>
-      <Carousel title="Everything you need for your cat" queryset="4" limit="4"/>
+      <Carousel title="Featured products" queryset="1" limit="4"/>
+      <Carousel title="Everything you need for your dog" queryset="2" limit="4"/>
+      <Carousel title="Everything you need for your cat" queryset="3" limit="4"/>
   </div>
 </template>
 <script setup>
