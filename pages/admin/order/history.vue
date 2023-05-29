@@ -1,5 +1,5 @@
 <script setup>
-import isSales from "../../middleware/isSales";
+import isSales from "../../../middleware/isSales";
 definePageMeta({
     middleware: isSales,
 });
@@ -8,7 +8,7 @@ const {data, status, signOut} = useAuth();
 const config = useRuntimeConfig();
 
 const {data: orders, pending, error} = useAuthFetch(
-    config.public.BACKEND_API_URL + '/order/?format=json&ordering=created_at&status=Processing'
+    config.public.BACKEND_API_URL + '/order/?format=json&ordering=created_at'
 );
 </script>
 
@@ -19,7 +19,7 @@ const {data: orders, pending, error} = useAuthFetch(
             <hr>
         </div>
         <div class="grid grid-cols-4 gap-8 auto-rows-auto">
-            <AdminSidePanel active="orders"/>
+            <AdminSidePanel active="history"/>
             <div class="md:col-span-3 col-span-full">
                 <div v-if="pending">
                     <h3>loading data...</h3>
@@ -67,14 +67,14 @@ const {data: orders, pending, error} = useAuthFetch(
 
 <script>
 export default {
-  name: "index",
-  methods: {
-      formatDate(time) {
-          const date = new Date(time);
-          const options = {  year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric' }
-          return date.toLocaleDateString('en-US', options);
-      },
-  }
+    name: "history",
+    methods: {
+        formatDate(time) {
+            const date = new Date(time);
+            const options = {  year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric' }
+            return date.toLocaleDateString('en-US', options);
+        },
+    }
 }
 </script>
 

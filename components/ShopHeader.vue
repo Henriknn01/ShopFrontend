@@ -83,7 +83,9 @@
                 <div class="space-y-6 border-t border-gray-200 py-6 px-4" v-else-if="status === 'authenticated'">
                     <div class="flow-root">
                     </div>
-                    <img class="w-12 h-12 rounded-full" :src="'https://api.dicebear.com/6.x/initials/svg?scale=80&seed='+data.user.email"  alt="profile picture header">
+                    <a href="/account">
+                        <img class="w-12 h-12 rounded-full" :src="'https://api.dicebear.com/6.x/initials/svg?scale=80&seed='+data.user.email"  alt="profile picture header">
+                    </a>
                 </div>
             </DialogPanel>
           </TransitionChild>
@@ -167,7 +169,7 @@
               </div>
                 <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6" v-else-if="status === 'authenticated'">
                     <a href="/account/">
-                      <img class="rounded-full h-7 w-7" :src="'https://api.dicebear.com/6.x/initials/svg?scale=80&seed='+data.user.email" alt="profile picture header">
+                      <img class="rounded-full hover:shadow-md h-7 w-7" :src="'https://api.dicebear.com/6.x/initials/svg?scale=80&seed='+data.user.email" alt="profile picture header">
                     </a>
                 </div>
 

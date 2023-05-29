@@ -8,7 +8,17 @@ const { data: product, pending, error, refresh } = await useFetch(config.public.
 const cart = useShoppingCartStore()
 const { getAverage } = useReviews();
 
+const prod = ref(await product)
 
+useHead({
+    meta: [
+        { hid: 'og-type', property: 'og:type', content: 'website' },
+        { hid: 'og-title', property: 'og:title', content: prod.value.name },
+        { hid: 'og-desc', property: 'og:description', content: prod.value.desc },
+        { hid: 'og-image', property: 'og:image', content: (prod.value.image.length > 0 ? prod.value.image[0].src : '')},
+
+    ]
+})
 function addToCart(item) {
     let i = {
         id: item.id,
