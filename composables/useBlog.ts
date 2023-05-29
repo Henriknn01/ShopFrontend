@@ -26,6 +26,7 @@ export default async function useBlog(): Promise<{
     let blogPosts:Ref<any[]> = ref([]);
     let visiblePosts:Ref<any[]> = ref([]);
     let totalLength:number = 0;
+    const config = useRuntimeConfig();
 
 
     async function init() {
@@ -35,7 +36,7 @@ export default async function useBlog(): Promise<{
     async function getProductListPicture(imageID: number) {
         try {
             const response = await $fetch(
-                `http://127.0.0.1:8000/image/?format=json&id=` + imageID
+                 config.public.BACKEND_API_URL + `/image/?format=json&id=` + imageID
             );
             return response[0].src;
         } catch (e) {
@@ -46,7 +47,7 @@ export default async function useBlog(): Promise<{
     async function getAuthorName(imageID: number) {
         try {
             const response = await $fetch(
-                `http://127.0.0.1:8000/image/?format=json&id=` + imageID
+                config.public.BACKEND_API_URL + `/image/?format=json&id=` + imageID
             );
             return response[0].src;
         } catch (e) {
@@ -57,7 +58,7 @@ export default async function useBlog(): Promise<{
     async function getBlogPosts(): Promise<void>{
         try {
             const response = await $fetch(
-                'http://127.0.0.1:8000/blogpost/?ordering=-created_at'
+                config.public.BACKEND_API_URL + '/blogpost/?ordering=-created_at'
             );
             const data = await response;
             blogPosts = await Promise.all(

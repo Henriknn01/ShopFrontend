@@ -27,7 +27,7 @@ const { signIn } = useAuth()
             </div>
             <div class="col-span-full row-span-1">
                 <h3 v-if="urlError==='CredentialsSignin'" class="text-red-500 font-semibold">Wrong username or password *</h3>
-                <form class="mt-2 space-y-4" action="#" @submit.prevent="signIn('credentials', {username: this.form.email, password: this.form.password});">
+                <form class="mt-2 space-y-4" action="#" @submit.prevent="signIn('credentials', {username: form.email, password: form.password});">
                     <input type="hidden" name="remember" value="true">
                     <div>
                         <label for="email-address" class="font-medium">Email address</label>
