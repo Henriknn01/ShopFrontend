@@ -1,6 +1,5 @@
 <script setup>
 import { StarIcon } from "@heroicons/vue/24/solid";
-import Reviews from "../../components/reviews.vue";
 const route = useRoute();
 const config = useRuntimeConfig();
 definePageMeta({ auth: false });
