@@ -46,8 +46,8 @@ try {
             <h2 class="text-3xl font-bold text-gray-900">{{ title }}</h2>
 
             <div class="mt-0 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0">
-                <div v-for="item in items" :key="item.id" class="group relative">
-                    <div class="mt-6 relative h-80 w-full overflow-hidden rounded-lg bg-white group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64 lg:aspect-w-1 lg:aspect-h-1">
+                <div v-for="item in items" :key="item.id" class="group">
+                    <div class="mt-6 h-80 w-full overflow-hidden rounded-lg bg-white group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64 lg:aspect-w-1 lg:aspect-h-1">
                         <img :src="item.imagesrc" :alt="item.imagealt" class="h-full w-full object-cover object-center"/>
                     </div>
                     <h3 class="mt-2 text-sm text-gray-500">
