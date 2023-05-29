@@ -28,7 +28,7 @@ function commentReview() {
             <div v-for="review in reviews" v-if="reviews.length > 0">
                 <div class="my-2 flex rounded-2xl shadow-lg p-4 bg-gray-50">
                     <div class="flex-none text-center m-2 px-4">
-                        <img class="w-10 h-10 rounded-full mx-auto" :src="'https://api.dicebear.com/6.x/initials/svg?scale=80&seed=anons'" alt="profile picture review">
+                        <img class="w-10 h-10 rounded-full mx-auto" :src="'https://api.dicebear.com/6.x/initials/svg?scale=80&seed=' + review.author" alt="profile picture review">
                         <h4 class="font-bold">{{ review.author }}</h4>
                         <p class="font-light">{{ formatDate(review.created_at) }}</p>
                     </div>
