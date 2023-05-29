@@ -9,7 +9,7 @@
     "postinstall": "nuxt prepare"
   },
   "engines": {
-    "node": "18.x"
+    "node": "16.x"
   },
   "devDependencies": {
     "@sidebase/nuxt-auth": "^0.5.0-rc.0",
