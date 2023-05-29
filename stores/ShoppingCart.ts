@@ -189,7 +189,8 @@ export const useShoppingCartStore = defineStore('ShoppingCart',{
         async purchaseCompleted(userAuth:any) {
             try {
                 const session = await this.retrieveStripeSession();
-                const orderDetails = await fetch("http://127.0.0.1:8000/order/", {
+                const config = useRuntimeConfig();
+                const orderDetails = await fetch(config.public.BACKEND_API_URL + "/order/", {
                     method: "POST",
                     body: JSON.stringify({
                         stripe_id: session.id,
@@ -217,7 +218,8 @@ export const useShoppingCartStore = defineStore('ShoppingCart',{
                     for (const i of session.item_list) {
                         const found = this.cart.find(f => f.name == i.description && f.price == (i.price.unit_amount / 100));
                         if (found) {
-                            const orderItem = await fetch("http://127.0.0.1:8000/order-item/", {
+                            const config = useRuntimeConfig();
+                            const orderItem = await fetch(config.public.BACKEND_API_URL + "/order-item/", {
                                 method: "POST",
                                 body: JSON.stringify({
                                     order: responseData.id,
