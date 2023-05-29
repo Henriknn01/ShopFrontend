@@ -110,7 +110,7 @@ export default NuxtAuthHandler({
                         email: userDetails.email,
                         firstName: userDetails.first_name,
                         lastName: userDetails.last_name,
-                        role: userDetails.role,
+                        role: decodedAccessJWT.role,
                         accessToken: userTokens.access,
                         accessTokenExpires: decodedAccessJWT.exp,
                         refreshToken: userTokens.refresh,
