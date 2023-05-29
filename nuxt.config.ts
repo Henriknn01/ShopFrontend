@@ -12,6 +12,14 @@ export default defineNuxtConfig({
         ],
         '@pinia-plugin-persistedstate/nuxt',
     ],
+    esbuild: {
+        supported: {
+            'top-level-await': true //browsers can handle top-level-await features
+        },
+    },
+    build: {
+        transpile: ['@heroicons/vue']
+    },
     auth: {
         // The module is enabled. Change this to disable the module
         isEnabled: true,
