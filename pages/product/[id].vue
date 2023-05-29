@@ -45,10 +45,8 @@ if (p.value) {
         setSelectedImage(p.value.image[0].src, p.value.image[0].alt);
     }
 }
-
-
-
-
+const {init, visiblePosts} = await useBlog()
+await init()
 </script>
 
 <template>
@@ -96,7 +94,7 @@ if (p.value) {
                 <p class="mt-2 text-lg leading-8 text-gray-600">Learn more about the latest news from Wave</p>
             </div>
             <div class="mx-auto my-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-              <article v-for="(item, index) in articles" :key="index" class="flex max-w-xl flex-col items-start justify-between">
+              <article v-for="(item, index) in visiblePosts" :key="index" class="flex max-w-xl flex-col items-start justify-between">
                 <div class="flex items-center gap-x-4 text-xs">
                   <time :datetime="item.date" class="text-gray-500">{{ item.date }}</time>
                 </div>
@@ -116,14 +114,9 @@ if (p.value) {
 </template>
 
 <script>
-const {init, visiblePosts} = await useBlog()
-await init()
+
 export default {
-  data() {
-    return {
-      articles: visiblePosts,
-    };
-  },
+    name: "[id]",
 };
 </script>
 
