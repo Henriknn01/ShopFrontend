@@ -3,9 +3,10 @@ export default defineNuxtRouteMiddleware((to, from) => {
     if (status.value != 'authenticated') {
         return navigateTo('/account/login');
     }
-    console.log(data.value.user)
 
-    if (data.value.user.role != 'admin' || data.value.user.role != 'sales') {
-        return abortNavigation('Insufficient permissions');
+    if (data.value.user.role != 'sales') {
+        if (data.value.user.role != 'admin') {
+            return abortNavigation('Insufficient permissions');
+        }
     }
 });
