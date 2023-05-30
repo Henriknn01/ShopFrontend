@@ -58,7 +58,7 @@ const { createUser, errors } = useAuthExtention();
                     </div>
                     <div class="flex items-center">
                         <input id="tos" name="tos" required type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
-                        <label for="tos" class="ml-2 block text-sm text-gray-900">I agree to the terms of service</label>
+                        <label for="tos" class="ml-2 block text-sm text-gray-900">I agree to the <a href="/tos" class="font-medium text-indigo-600 hover:text-indigo-500">Terms of Service</a></label>
                     </div>
 
                     <div>
