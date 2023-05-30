@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white min-h-screen flex flex-col h-screen">
+  <div class="my-4">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex-grow grid grid-cols-1 gap-6 content-center">
       <h1 class="text-4xl font-bold text-center py-4">ABOUT US</h1>
       <p class="px-16 py-6">
