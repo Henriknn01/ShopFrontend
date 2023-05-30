@@ -3,7 +3,7 @@
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex-grow grid grid-cols-1 gap-6 content-center">
       <h1 class="text-4xl font-bold text-center py-4">ABOUT US</h1>
       <p class="px-16 py-6">
-        We are Pet Plus, the premier online store for pet fashion and accessories.
+        We are Wave Pet Plus, the premier online store for pet fashion and accessories.
         Our mission is to provide pet owners with the highest quality pet clothing and accessories to keep their furry friends looking and feeling their best.
         We believe that pets should be stylish and comfortable, and our products reflect that.
         Our selection includes a wide range of pet clothing and accessories, such as coats,
