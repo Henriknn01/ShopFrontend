@@ -15,6 +15,9 @@
             <li class="mb-4">
               <a href="/about" class="hover:underline">About us</a>
             </li>
+            <li class="mb-4">
+                <a href="/contact" class="hover:underline">Contact us</a>
+            </li>
             <li>
               <a href="/qanda" class="hover:underline">Q&A</a>
             </li>
