@@ -67,7 +67,7 @@ export default async function useBlog(): Promise<{
                         id: post.id,
                         title: post.title,
                         content: post.short_content_display,
-                        imageUrl: await getProductListPicture(post.banner_image),
+                        imageUrl: post.banner_image.src,
                         author: post.author,
                         date: post.created_at,
                         href: "",
@@ -83,8 +83,9 @@ export default async function useBlog(): Promise<{
 
     async function getBlogPost(blogID: number): Promise<BlogPost>{
         try {
+            const config = useRuntimeConfig();
             const response = await $fetch(
-                'http://127.0.0.1:8000/blogpost/?ordering=-created_at&id=' + blogID
+                config.public.BACKEND_API_URL + '/blogpost/?ordering=-created_at&id=' + blogID
             );
             const data = await response;
             const blogPost = await Promise.all(
@@ -93,7 +94,7 @@ export default async function useBlog(): Promise<{
                         id: post.id,
                         title: post.title,
                         content: post.content,
-                        imageUrl: await getProductListPicture(post.banner_image),
+                        imageUrl: post.banner_image.src,
                         author: post.author,
                         date: post.created_at,
                         href: "",
