@@ -13,10 +13,7 @@ Link to Swagger api documentation: [api.norheimweb.com/swagger/](https://api.nor
 ### Test users
 These are the available test users for testing the website.
 
-| Role  | Username                 | Password                              |
-|-------|--------------------------|---------------------------------------|
-| Admin | waveadmin@norheimweb.com | 9cC454Pskh48yG9Asq$$9e#T&xF#SM5$q!$$  |
-| User  | waveuser@norheimweb.com  | rme?Sxhdmq47g?b@pr&srXRJyxL5sitoxQfr  |
+* Users details available in Inspera.
 
 
 ### Checkout
