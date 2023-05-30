@@ -12,13 +12,12 @@ let pageIndex = 0
 let products = []
 const IntLimit = parseInt(props.limit)
 
-const { data: productList, pending, error, refresh } = await useFetch(config.public.BACKEND_API_URL + "/productlist/" + props.queryset);
+const { data: productList, pending, error, refresh } = await useFetch(config.public.BACKEND_API_URL + "/product/?format=json&category=" + props.queryset);
 try {
-    products = await productList.value.products
+    products = await productList.value
 } catch (e) {
     products = []
 }
-
 const updateVisibleProducts = () => {
     try {
         visibleProducts.value = products.slice(pageIndex, pageIndex + IntLimit);
@@ -47,15 +46,6 @@ function scrollPrev() {
 }
 
 await init()
-</script>
-
-<script>
-export default {
-    name: 'Carousel',
-}
-
-
-
 </script>
 
 <template>
@@ -94,7 +84,11 @@ export default {
     </div>
 </template>
 
-
+<script>
+export default {
+    name: "CategoryCarousel"
+}
+</script>
 
 <style scoped>
 
