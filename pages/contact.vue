@@ -1,3 +1,6 @@
+<script setup>
+definePageMeta({ auth: false });
+</script>
 <template>
     <div class="my-4">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex-grow grid grid-cols-1 gap-6 content-center">
