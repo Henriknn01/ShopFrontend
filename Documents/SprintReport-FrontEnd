@@ -1,0 +1,61 @@
+Sprint Report: Frontend Development
+Development on frontend started in 2023 week 3 
+
+Week 3:
+During this sprint, we focused on setting up the development environment and creating a basic project structure. We selected the appropriate frontend framework, configured necessary dependencies, and established a foundation for the upcoming development tasks.
+
+Week 4:
+In this sprint, our primary objective was to design the overall user interface (UI) and user experience (UX) of the application. We put focus on design and created wireframes and prototypes. We also started implementing basic UI components and layout structures.
+
+Week 5:
+During this sprint, we concentrated on developing the core functionality of the frontend. We worked on implementing the main navigation, user authentication screens, and basic data rendering. We also conducted preliminary testing to ensure the UI components were functioning as expected.
+
+Week 6:
+In this sprint, our focus was on enhancing the usability and interactivity of the frontend. We implemented user feedback mechanisms, such as form validation and error handling. We also worked on integrating client-side data caching to improve performance and reduce network requests.
+
+Week 7:
+During this sprint, we worked on optimizing the application's performance. We identified and resolved bottlenecks, implemented lazy loading for resources, and optimized the rendering of complex UI components. Additionally, we conducted performance testing to measure and improve the application's speed.
+
+Week 8:
+In this sprint, we concentrated on integrating frontend components with the backend API. We implemented API request handling, data retrieval, and data manipulation functionalities. We put focus om the backend to ensure seamless integration and conducted testing to verify the communication between frontend and backend.
+
+
+Week 9:
+During this sprint, our primary objective was to implement responsive design and mobile optimization. We focused on creating a consistent and user-friendly experience across different devices and screen sizes. We utilized responsive design frameworks and performed testing on various devices and browsers.
+
+Week 10:
+In this sprint, we worked on enhancing the accessibility of the frontend application. We implemented added alternative text for images, and improved keyboard navigation. We also conducted accessibility testing to ensure compliance with relevant standards and guidelines.
+
+Week 11:
+During this sprint, our focus was on things we hadn’t finished yet, and to stay on schedule as much as possible.
+
+Week 12:
+In this sprint, we concentrated on implementing additional UI/UX improvements. We fine-tuned the UI components, enhanced the user flow, and implemented requested enhancements. 
+
+Week 13: 
+This week we worked on overall stability. 
+
+Week 14:
+In this sprint, we focused on implementing additional features. We prioritized the development of high-value features. 
+
+Week 15:
+During this sprint, we worked on enhancing the documentation related to the frontend. We updated user guides, created detailed component documentation, and documented the frontend architecture. This documentation would serve as a valuable resource for future development.
+
+Week 16:
+In this sprint, our main objective was to conduct a comprehensive UI/UX review of the application. We put focus on design and discussed, so we could identify areas for improvement, implement design enhancements, and refine the overall look and feel of the frontend. We also conducted user testing to validate the changes.
+
+
+
+
+
+Week 17:
+During this sprint, we focused on optimizing the deployment process and preparing for the release. We automated the build and deployment pipeline, ensuring smoother and more reliable deployments. We also conducted end-to-end testing, resolved integration issues with the backend, and ensured the frontend's readiness for production.
+
+Week 18:
+In this sprint, we concentrated on code refactoring and improving code quality. We reviewed existing codebases, identified areas for improvement, and implemented best practices. This process helped enhance maintainability, readability, and scalability of the frontend code.
+
+Week 19 and onwards:
+During this final sprint, our main objective was to conduct thorough system testing and prepare for the release. We performed end-to-end testing, conducted final performance tests, and ensured the frontend's readiness for deployment. We were also identifying and resolving integration issues with the backend.
+
+
+Across this semester we have successfully implemented a user-friendly and responsive UI, integrated with the backend, optimized performance, and conducted usability testing. The frontend is now ready for deployment, marking a major milestone in the project's development lifecycle.
