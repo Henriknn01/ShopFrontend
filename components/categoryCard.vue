@@ -6,8 +6,8 @@ const props = defineProps({
 const items = ref([]);
 const config = useRuntimeConfig();
 let parent = props.parent
+let {data: categories, error, pending } = await useFetch(config.public.BACKEND_API_URL + `/productcategory/?parent_category=` + props.parent)
 try {
-    let {data: categories } = await useFetch(config.public.BACKEND_API_URL + `/productcategory/?parent_category=` + props.parent)
     if (props.parent === "") {
         parent = null
     }
@@ -42,22 +42,30 @@ try {
 
 <template>
     <div>
-        <div class="mx-auto max-w-2xl pb-3 sm:pb-6 lg:max-w-none lg:py-22">
-            <h2 class="text-3xl font-bold text-gray-900">{{ title }}</h2>
+        <div class="mx-auto max-w-2xl pb-3 sm:pb-6 lg:max-w-none lg:py-22" v-if="pending">
+            Loading...
+        </div>
+        <div class="mx-auto max-w-2xl pb-3 sm:pb-6 lg:max-w-none lg:py-22" v-else-if="error">
+            {{error}}
+        </div>
+        <div v-else>
+            <div class="mx-auto max-w-2xl pb-3 sm:pb-6 lg:max-w-none lg:py-22" v-if="items.length > 0">
+                <h2 class="text-3xl font-bold text-gray-900">{{ title }}</h2>
 
-            <div class="mt-0 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0">
+                <div class="mt-0 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0">
 
-                <a v-for="item in items" :key="item.id" :href="'/categories/' + item.id">
-                    <div class="group z-0">
-                        <div class="mt-6 h-80 w-full overflow-hidden rounded-lg bg-white group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64 lg:aspect-w-1 lg:aspect-h-1">
-                            <img :src="item.imagesrc" :alt="item.imagealt" class="h-full w-full object-cover object-center"/>
+                    <a v-for="item in items" :key="item.id" :href="'/categories/' + item.id">
+                        <div class="group z-0">
+                            <div class="mt-6 h-80 w-full overflow-hidden rounded-lg bg-white group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64 lg:aspect-w-1 lg:aspect-h-1">
+                                <img :src="item.imagesrc" :alt="item.imagealt" class="h-full w-full object-cover object-center"/>
+                            </div>
+                            <h3 class="mt-2 text-sm text-gray-500">
+                                {{ item.name }}
+                            </h3>
+                            <p class="text-base font-semibold text-gray-900">{{ item.desc }}</p>
                         </div>
-                        <h3 class="mt-2 text-sm text-gray-500">
-                            {{ item.name }}
-                        </h3>
-                        <p class="text-base font-semibold text-gray-900">{{ item.desc }}</p>
-                    </div>
-                </a>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
