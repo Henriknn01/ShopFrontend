@@ -16,7 +16,7 @@ definePageMeta({ auth: false });
           {{error}}
       </div>
       <div v-else>
-          <img class="w-full h-64 rounded-lg object-cover object-center" :src="(productList.image.length>0 ? productList.image[0].src : '')">
+          <img class="w-full h-64 rounded-lg object-cover object-center" :src="(productList.image.length>0 ? productList.image[0].src : '')" :alt="(productList.image.length>0 ? productList.image[0].alt : '')">
           <h1 class="text-3xl font-bold text-gray-900 my-6">{{ productList.name }}</h1>
           <hr>
           <div class="grid grid-cols-4 gap-4 auto-rows-auto my-12">

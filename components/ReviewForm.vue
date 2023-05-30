@@ -12,13 +12,13 @@ const { signOut, status, data } = useAuth();
         <div class="gap-4">
             <form @submit.prevent="sendForm(props.productId, data.user)">
                 <div>
-                    <label>Content</label>
-                    <textarea v-model="content" class="w-full h-20 shadow-inner rounded-md text-md p-2 bg-gray-50"></textarea>
+                    <label for="content">Content</label>
+                    <textarea id="content" v-model="content" class="w-full h-20 shadow-inner rounded-md text-md p-2 bg-gray-50"></textarea>
                 </div>
                 <div>
-                    <label>Stars</label>
+                    <label for="stars">Stars</label>
                     <div class="flex text-xl">
-                        <input v-model="rating" type="number" class="p-2 shadow-inner rounded-md bg-gray-50" max="5" min="0"/><span class="m-2">/ 5</span>
+                        <input id="stars" v-model="rating" type="number" class="p-2 shadow-inner rounded-md bg-gray-50" max="5" min="0"/><span class="m-2">/ 5</span>
                     </div>
                 </div>
                 <div class="my-4">
