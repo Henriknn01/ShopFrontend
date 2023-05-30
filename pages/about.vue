@@ -19,6 +19,22 @@
         We want to help make your pet look and feel their absolute best.
         Shop with us today for the best selection of pet clothing and accessories.
       </p>
+      <h2 class="text-3xl font-semibold text-center pt-4">Our values</h2>
+        <p class="px-16 pt-2 pb-6">
+            At Wave Pet Plus, we strive to bring our customers quality pet fashion and accessories that
+            embody our three core values: style, comfort, and affordability.
+            <br>
+            <br>
+            Our selection of pet clothing and
+            accessories is designed to help your pet look and feel their best. We believe that style and comfort
+            should go hand in hand, so we offer a range of stylish pieces that are also comfortable for your pet. And,
+            we make sure our prices are affordable so that pet owners can shop for their furry friends without
+            breaking the bank.
+            <br>
+            <br>
+            Shop with us today for the best selection of pet clothing and accessories that offer
+            style, comfort, and affordability.
+        </p>
     </div>
   </div>
 </template>
