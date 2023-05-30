@@ -4,6 +4,32 @@
 The shop frontend is running Nuxt 3. Nuxt 3 was selected for this project for a variety of reasons, but mainly for its ease of use and SEO features.
 Nuxt 3 also offers great performance and speed, On-demand rendering and SEO.
 
+Link to Frontend: [www.norheimweb.com](https://www.norheimweb.com)
+
+Link to Backend: [api.norheimweb.com](https://api.norheimweb.com)
+
+Link to Swagger api documentation: [api.norheimweb.com/swagger/](https://api.norheimweb.com/swagger/)
+
+### Test users
+These are the available test users for testing the website.
+
+| Role  | Username                 | Password                              |
+|-------|--------------------------|---------------------------------------|
+| Admin | waveadmin@norheimweb.com | 9cC454Pskh48yG9Asq$$9e#T&xF#SM5$q!$$  |
+| User  | waveuser@norheimweb.com  | rme?Sxhdmq47g?b@pr&srXRJyxL5sitoxQfr  |
+
+
+### Checkout
+To test the checkout of the website fill inn any personal information.
+
+| Field       | Value               |
+|-------------|---------------------|
+| Card Number | 4242 4242 4242 4242 |
+| MM/YY       | Any valid MM/YY     |
+| CVC         | Any number          |
+
+
+
 ### Infrastructure
 From the start we coded the frontend to be scalable together with the backend. Making the application scalable was a priority for out team, to be able to handle user traffic and quickly be able to scale up to meet demand if needed.
 
