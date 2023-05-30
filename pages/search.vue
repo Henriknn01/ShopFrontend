@@ -6,12 +6,15 @@ let config = useRuntimeConfig();
 const searchField = ref('');
 
 const {data: products, pending, error, refresh} = await useFetch(config.public.BACKEND_API_URL + `/product/`,
-    {
-            params: {
-                search: searchField,
-            },
-            watch: [searchField],
-        });
+{
+        params: {
+            search: searchField,
+        },
+        watch: [searchField],
+    }
+);
+
+definePageMeta({ auth: false });
 
 </script>
 
